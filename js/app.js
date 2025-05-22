@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (adFilterToggle) {
         adFilterToggle.checked = localStorage.getItem(PLAYER_CONFIG.adFilteringStorage) !== 'false'; // 默认为true
     }
-    
+
     // 设置事件监听器
     setupEventListeners();
     
