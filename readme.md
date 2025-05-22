@@ -1,34 +1,30 @@
 # 星空影城 - 免费在线视频搜索与观看平台
 
 <div align="center">
-  <img src="./image/retrotv_5520.png" alt="星空影城 Logo" width="120">
+  <img src="./image/mainLogo.png" alt="星空影城 Logo" width="120">
   <br>
-  <p><strong>自由观影，畅享精彩</strong></p>
+  <p><em> A Norns Interactive Project. </em></p>
+  <p><strong>免费影视大全</strong></p>
 </div>
 
 ## 📺 项目简介
 
 星空影城 是一个轻量级、免费的在线视频搜索与观看平台，提供来自多个视频源的内容搜索与播放服务。无需注册，即开即用，支持多种设备访问。项目结合了前端技术和后端代理功能，可部署在支持服务端功能的各类网站托管服务上。
 
-本项目基于 [bestK/tv](https://github.com/bestK/tv) 进行重构与增强。
+本项目基于 [LibreSpark/LibreTV](https://github.com/LibreSpark/LibreTV) 进行重构与增强。
 
 <details>
   <summary>点击查看项目截图</summary>
   <img src="https://github.com/user-attachments/assets/df485345-e83b-4564-adf7-0680be92d3c7" alt="项目截图" style="max-width:600px">
 </details>
 
-## 🥇 感谢赞助
-
-- **[YXVM](https://yxvm.com)**  
-- **[VTEXS](https://vtexs.com)**
-
 ## 🚀 快速部署
 
 选择以下任一平台，点击一键部署按钮，即可快速创建自己的 星空影城 实例：
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FLibreSpark%2F星空影城) [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/LibreSpark/星空影城) 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FLibreSpark%2F星空影城) [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ksda9001/Jihad) 
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/LibreSpark/星空影城) 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/ksda9001/Jihad) 
 
 ## ⚠️ 请勿使用 Pull Bot 自动同步
 
@@ -62,38 +58,6 @@ Pull Bot 会反复触发无效的 PR 和垃圾邮件，严重干扰项目维护�
 4. 点击"Deploy"
 5. 可选：在"Settings" > "Environment Variables"中配置密码保护
 
-
-### Docker
-
-使用 Docker 运行 星空影城：
-
-```bash
-docker run -d \
-  --name 星空影城 \
-  -p 8899:80 \
-  -e PASSWORD=your_password_here \
-  bestzwei/星空影城:latest
-```
-
-访问 `http://localhost:8899` 即可使用。
-
-### Docker Compose
-
- `docker-compose.yml` 文件：
-
-```yaml
-version: '3'
-services:
-  星空影城:
-    image: bestzwei/星空影城:latest
-    container_name: 星空影城
-    ports:
-      - "8899:80"
-    environment:
-      - PASSWORD=111111
-    restart: unless-stopped
-```
-
 ### 本地开发环境
 
 项目包含后端代理功能，需要支持服务器端功能的环境：
@@ -109,26 +73,11 @@ npm install
 npm run dev
 ```
 
-访问 `http://localhost:8080` 即可使用（端口可在.env文件中通过PORT变量修改）。
+访问 `http://localhost:8899` 即可使用（端口可在.env文件中通过PORT变量修改）。
 
 > ⚠️ 注意：使用简单静态服务器（如 `python -m http.server` 或 `npx http-server`）时，视频代理功能将不可用，视频无法正常播放。完整功能测试请使用 Node.js 开发服务器。
 
 ## 🔧 自定义配置
-
-### 密码保护
-
-要为您的 星空影城 实例添加密码保护，可以在部署平台上设置环境变量：
-
-**环境变量名**: `PASSWORD` 
-**值**: 您想设置的密码
-
-各平台设置方法：
-
-- **Cloudflare Pages**: Dashboard > 您的项目 > 设置 > 环境变量
-- **Vercel**: Dashboard > 您的项目 > Settings > Environment Variables
-- **Netlify**: Dashboard > 您的项目 > Site settings > Build & deploy > Environment
-- **Docker**: 使用 `-e PASSWORD=your_password` 参数
-- **本地开发**: SET PASSWORD=your_password
 
 ### API兼容性
 
@@ -166,9 +115,3 @@ npm run dev
 星空影城 仅作为视频搜索工具，不存储、上传或分发任何视频内容。所有视频均来自第三方 API 接口提供的搜索结果。如有侵权内容，请联系相应的内容提供方。
 
 本项目开发者不对使用本项目产生的任何后果负责。使用本项目时，您必须遵守当地的法律法规。
-
-## 💝 支持项目
-
-如果您想支持本项目，可以考虑进行捐款：
-
-[![捐赠](https://img.shields.io/badge/捐赠-UNICEF-1a85ff?style=for-the-badge&logo=unicef)](https://www.unicef.org/zh)
