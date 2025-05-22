@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 设置默认API选择（如果是第一次加载）
     if (!localStorage.getItem('hasInitializedDefaults')) {
         // 默认选中资源
-        // selectedAPIs = ["tyyszy","bfzy","dyttzy", "ruyi","ffzy","heimuer","jisu","wolong","iqiyi","hwba","jisu","dbzy",
+        // selectedAPIs = ["tyyszy","bfzy","dyttzy","ruyi","ffzy","heimuer","jisu","wolong","iqiyi","hwba","jisu","dbzy",
         //     "mozhua","mdzy","zuid","yinghua","baidu", "wujin","wwzy","ikun","ckzy","jkun","bwzy","souav","r155","lsb",
         //     "huangcang","yutu"
         // ];
-        selectedAPIs = ["tyyszy","bfzy","dyttzy", "ruyi"];
+        selectedAPIs = ["tyyszy","bfzy","dyttzy","ruyi","dbzy"];
         localStorage.setItem('selectedAPIs', JSON.stringify(selectedAPIs));
         
         // 默认选中过滤开关
