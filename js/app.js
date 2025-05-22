@@ -1,8 +1,7 @@
 // 全局变量
 let selectedAPIs = JSON.parse(localStorage.getItem('selectedAPIs') || '["tyyszy","dyttzy", "bfzy", "ruyi"]'); // 默认选中资源
 let customAPIs = JSON.parse(localStorage.getItem('customAPIs') || '[]'); // 存储自定义API列表
-// 默认启用豆瓣功能
-localStorage.setItem('doubanEnabled', 'true');
+
 // 添加当前播放的集数索引
 let currentEpisodeIndex = 0;
 // 添加当前视频的所有集数
@@ -40,7 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('yellowFilterEnabled', 'false');
         localStorage.setItem(PLAYER_CONFIG.adFilteringStorage, 'true');
         
-        
+        // 默认启用豆瓣功能
+        localStorage.setItem('doubanEnabled', 'true');
 
         // 标记已初始化默认值
         localStorage.setItem('hasInitializedDefaults', 'true');
@@ -1508,7 +1508,7 @@ function saveStringAsFile(content, fileName) {
 
 // app.js 或路由文件中
 // const authMiddleware = require('./middleware/auth');
-const config = require('./config');
+// const config = require('./config');
 
 // // 对所有请求启用鉴权（按需调整作用范围）
 // if (config.auth.enabled) {
