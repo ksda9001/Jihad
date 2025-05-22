@@ -1,7 +1,8 @@
 // 全局变量
 let selectedAPIs = JSON.parse(localStorage.getItem('selectedAPIs') || '["tyyszy","dyttzy", "bfzy", "ruyi"]'); // 默认选中资源
 let customAPIs = JSON.parse(localStorage.getItem('customAPIs') || '[]'); // 存储自定义API列表
-
+// 默认启用豆瓣功能
+localStorage.setItem('doubanEnabled', 'true');
 // 添加当前播放的集数索引
 let currentEpisodeIndex = 0;
 // 添加当前视频的所有集数
@@ -39,8 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('yellowFilterEnabled', 'false');
         localStorage.setItem(PLAYER_CONFIG.adFilteringStorage, 'true');
         
-        // 默认启用豆瓣功能
-        localStorage.setItem('doubanEnabled', 'true');
+        
 
         // 标记已初始化默认值
         localStorage.setItem('hasInitializedDefaults', 'true');
@@ -572,11 +572,11 @@ function resetSearchArea() {
     try {
         window.history.pushState(
             {}, 
-            `LibreTV - 免费在线视频搜索与观看平台`, 
+            `星空影城 - 免费影视大全`, 
             `/`
         );
         // 更新页面标题
-        document.title = `LibreTV - 免费在线视频搜索与观看平台`;
+        document.title = `星空影城 - 免费影视大全`;
     } catch (e) {
         console.error('更新浏览器历史失败:', e);
     }
@@ -790,11 +790,11 @@ async function search() {
             // 使用HTML5 History API更新URL，不刷新页面
             window.history.pushState(
                 { search: query }, 
-                `搜索: ${query} - LibreTV`, 
+                `搜索: ${query} - 星空影城`, 
                 `/s=${encodedQuery}`
             );
             // 更新页面标题
-            document.title = `搜索: ${query} - LibreTV`;
+            document.title = `搜索: ${query} - 星空影城`;
         } catch (e) {
             console.error('更新浏览器历史失败:', e);
             // 如果更新URL失败，继续执行搜索
@@ -1276,7 +1276,7 @@ async function importConfigFromUrl() {
             }
 
             const config = await response.json();
-            if (config.name !== 'LibreTV-Settings') throw '配置文件格式不正确';
+            if (config.name !== 'StarTV-Settings') throw '配置文件格式不正确';
 
             // 验证哈希
             const dataHash = await sha256(JSON.stringify(config.data));
@@ -1328,7 +1328,7 @@ async function importConfig() {
 
             // 解析并验证配置
             const config = JSON.parse(content);
-            if (config.name !== 'LibreTV-Settings') throw '配置文件格式不正确';
+            if (config.name !== 'StarTV-Settings') throw '配置文件格式不正确';
 
             // 验证哈希
             const dataHash = await sha256(JSON.stringify(config.data));
@@ -1412,7 +1412,7 @@ async function importConfigFromUrl() {
             if (!response.ok) throw '获取配置文件失败';
 
             const config = await response.json();
-            if (config.name !== 'LibreTV-Settings') throw '配置文件格式不正确';
+            if (config.name !== 'StarTV-Settings') throw '配置文件格式不正确';
 
             // 验证哈希
             const dataHash = await sha256(JSON.stringify(config.data));
@@ -1479,14 +1479,14 @@ async function exportConfig() {
     }
 
     const times = Date.now().toString();
-    config['name'] = 'LibreTV-Settings';  // 配置文件名，用于校验
+    config['name'] = 'StarTV-Settings';  // 配置文件名，用于校验
     config['time'] = times;               // 配置文件生成时间
     config['cfgVer'] = '1.0.0';           // 配置文件版本
     config['data'] = items;               // 配置文件数据
     config['hash'] = await sha256(JSON.stringify(config['data']));  // 计算数据的哈希值，用于校验
 
     // 将配置数据保存为 JSON 文件
-    saveStringAsFile(JSON.stringify(config), 'LibreTV-Settings_' + times + '.json');
+    saveStringAsFile(JSON.stringify(config), 'StarTV-Settings_' + times + '.json');
 }
 
 // 将字符串保存为文件
@@ -1507,13 +1507,13 @@ function saveStringAsFile(content, fileName) {
 }
 
 // app.js 或路由文件中
-const authMiddleware = require('./middleware/auth');
+// const authMiddleware = require('./middleware/auth');
 const config = require('./config');
 
-// 对所有请求启用鉴权（按需调整作用范围）
-if (config.auth.enabled) {
-  app.use(authMiddleware);
-}
+// // 对所有请求启用鉴权（按需调整作用范围）
+// if (config.auth.enabled) {
+//   app.use(authMiddleware);
+// }
 
-// 或者针对特定路由
-app.use('/api', authMiddleware);
+// // 或者针对特定路由
+// app.use('/api', authMiddleware);
