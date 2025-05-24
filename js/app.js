@@ -13,6 +13,27 @@ let episodesReversed = false;
 
 // 页面初始化
 document.addEventListener('DOMContentLoaded', function() {
+
+
+
+    //直接插入完整 Matomo 跟踪脚本
+    // const matomoScript = document.createElement('script');
+    // matomoScript.innerHTML = `
+    //     var _paq = window._paq = window._paq || [];
+    //     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    //     _paq.push(['trackPageView']);
+    //     _paq.push(['enableLinkTracking']);
+    //     (function() {
+    //         var u="//74.48.174.22:7091/";
+    //         _paq.push(['setTrackerUrl', u+'matomo.php']);
+    //         _paq.push(['setSiteId', '2']);
+    //         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    //         g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    //     })();
+    // `;
+    // document.body.appendChild(matomoScript);
+
+
     // 初始化API复选框
     initAPICheckboxes();
     

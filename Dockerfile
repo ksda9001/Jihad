@@ -1,25 +1,15 @@
-FROM fabiocicerchia/nginx-lua:1.27.5-alpine3.21.3
-LABEL maintainer="星空影城 Team"
-LABEL description="星空影城 - 免费在线视频搜索与观看平台"
+FROM node:latest
 
-# 复制应用文件
-COPY . /usr/share/nginx/html
+# 设置工作目录
+WORKDIR /app
 
-# 复制Nginx配置文件
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# 安装 nodemon 用于热更新（仅用于开发）
+RUN npm install -g nodemon
 
-# 添加执行权限并设置为入口点脚本
-COPY docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
+# 安装依赖（注意：实际使用时依赖由挂载进来的 volume 提供）
+COPY package*.json ./
+RUN npm install
 
-# 暴露端口
-EXPOSE 80
+# 容器启动命令：使用 nodemon 热更新
+CMD ["nodemon", "app.js"]
 
-# 设置入口点
-ENTRYPOINT ["/docker-entrypoint.sh"]
-
-# 启动nginx
-CMD ["nginx", "-g", "daemon off;"]
-
-# 健康检查
-HEALTHCHECK --interval=30s --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1

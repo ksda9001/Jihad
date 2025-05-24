@@ -8,6 +8,10 @@ let defaultTvTags = ['热门', '美剧', '英剧', '韩剧', '日剧', '国产�
 let movieTags = [];
 let tvTags = [];
 
+if(localStorage.getItem('doubanEnabled')==null){
+    localStorage.setItem('doubanEnabled', 'true');
+}
+
 // 加载用户标签
 function loadUserTags() {
     try {

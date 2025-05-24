@@ -103,6 +103,14 @@ let adFilteringEnabled = true; // 默认开启广告过滤
 let progressSaveInterval = null; // 定期保存进度的计时器
 let currentVideoUrl = ''; // 记录当前实际的视频URL
 
+// 封面图片列表
+const videoCoverImageBasePath="image/video-cover/";
+const coverImages = [
+    // videoCoverImageBasePath+'mainLogo.png',
+    videoCoverImageBasePath+'moon-2762111_1280.jpg'
+];
+
+
 // 页面加载
 document.addEventListener('DOMContentLoaded', function() {
     // 先检查用户是否已通过密码验证
@@ -399,19 +407,19 @@ function initPlayer(videoUrl, sourceCode) {
         contextmenu: [                   // 自定义右键菜单
             {
                 text: '关于 星空影城',
-                link: 'https://github.com/LibreSpark/星空影城'
+                link: 'https://github.com/ksda9001/Jihad'
             },
             {
                 text: '问题反馈',
                 click: (player) => {
-                    window.open('https://github.com/LibreSpark/星空影城/issues', '_blank');
+                    window.open('https://github.com/ksda9001/Jihad/issues', '_blank');
                 }
             }
         ],
         video: {
             url: videoUrl,
             type: 'hls',
-            pic: 'image/nomedia.png', // 设置视频封面图
+            pic: coverImages[Math.floor(Math.random() * coverImages.length)], // 设置视频封面图,随机选取coverImages里的一张
             customType: {
                 hls: function(video, player) {
                     // 清理之前的HLS实例
