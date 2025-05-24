@@ -58,6 +58,11 @@ async function renderPage(filePath, password) {
     const sha256 = await sha256Hash(password);
     content = content.replace('{{PASSWORD}}', sha256);
   }
+  
+  //添加全局js
+  const injectedScript = `<script src="js/global.js"></script>`;
+  content = content.replace('<head>', `<head>\n${injectedScript}\n`);
+    //返回响应html
   return content;
 }
 
@@ -75,11 +80,7 @@ app.get(['/', '/index.html', '/player.html'], async (req, res) => {
     }
     
     const content = await renderPage(filePath, config.password);
-    //添加全局js
-    const injectedScript = `<script src="js/global.js"></script>`;
-    const finalContent = content.replace('<head>', `<head>\n${injectedScript}\n`);
-    //返回响应html
-    res.send(finalContent);
+    res.send(content);
   } catch (error) {
     console.error('页面渲染错误:', error);
     res.status(500).send('读取静态页面失败');
