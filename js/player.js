@@ -107,7 +107,11 @@ let currentVideoUrl = ''; // 记录当前实际的视频URL
 const videoCoverImageBasePath="image/video-cover/";
 const coverImages = [
     // videoCoverImageBasePath+'mainLogo.png',
-    videoCoverImageBasePath+'moon-2762111_1280.jpg'
+    videoCoverImageBasePath+'moon-2762111_1280.jpg',
+    videoCoverImageBasePath+'4c301cdd636636d0d3458b241feddb8.jpg',
+    videoCoverImageBasePath+'moon-3568835_1280.jpg',
+    videoCoverImageBasePath+'moon-3568836_1280.jpg',
+    videoCoverImageBasePath+'thunderbolt-1905603_1280.png',
 ];
 
 
