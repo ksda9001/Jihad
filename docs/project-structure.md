@@ -1,0 +1,92 @@
+# 项目结构
+
+- 📄 .env
+- 📄 .env.example
+- 📁 **.github**
+  - 📁 **ISSUE_TEMPLATE**
+    - 📄 bug_report.yml
+    - 📄 config.yml
+    - 📄 feature_request.yml
+  - 📁 **workflows**
+    - 📄 docker-build.yml
+    - 📄 sync.yml
+    - 📄 version.yml
+- 📄 .gitignore
+- 📁 **.project-tools**
+  - 📄 generate-structure.js
+- 📄 LICENSE
+- 📄 about.html
+- 📁 **api**
+  - 📁 **proxy**
+    - 📄 [...path].mjs
+- 📁 **css**
+  - 📄 index.css
+  - 📄 modals.css
+  - 📄 player.css
+  - 📄 styles.css
+  - 📄 watch.css
+- 📄 docker-entrypoint.sh
+- 📁 **docs**
+  - 📄 .dockerignore
+  - 📄 Dockerfile
+  - 📄 cfc886584308bdc0ded4d5cbe2907e6.png
+  - 📄 project-structure.md
+  - 📄 部署到docker启动.md
+- 📁 **functions**
+  - 📄 _middleware.js
+  - 📁 **proxy**
+    - 📄 [[path]].js
+- 📁 **image**
+  - 📄 logo.png
+  - 📄 mainLogo.png
+  - 📄 nomedia.png
+  - 📄 nomedia.psd
+  - 📄 retrotv_5520.png
+  - 📁 **video-cover**
+    - 📄 4c301cdd636636d0d3458b241feddb8.jpg
+    - 📄 mainLogo.png
+    - 📄 moon-2762111_1280.jpg
+    - 📄 moon-3568835_1280.jpg
+    - 📄 moon-3568836_1280.jpg
+    - 📄 thunderbolt-1905603_1280.png
+- 📄 index.html
+- 📄 indexDEV.html
+- 📁 **js**
+  - 📄 api.js
+  - 📄 app.js
+  - 📄 config.js
+  - 📄 douban.js
+  - 📄 index-page.js
+  - 📄 middleware
+  - 📄 password.js
+  - 📄 player.js
+  - 📄 pwa-register.js
+  - 📄 sha256.js
+  - 📄 ui.js
+  - 📄 version-check.js
+  - 📄 wakelock.js
+  - 📄 watch.js
+- 📁 **libs**
+  - 📄 DPlayer.min.js
+  - 📄 hls.min.js
+  - 📄 sha256.min.js
+  - 📄 tailwindcss.min.js
+- 📄 manifest.json
+- 📄 middleware.js
+- 📁 **netlify**
+  - 📁 **functions**
+    - 📄 proxy.mjs
+- 📄 netlify.toml
+- 📄 nginx.conf
+- 📄 nodemon.json
+- 📄 package-lock.json
+- 📄 package.json
+- 📄 player.html
+- 📄 privacy.html
+- 📄 proxy.lua
+- 📄 readme.md
+- 📄 robots.txt
+- 📄 server.mjs
+- 📄 service-worker.js
+- 📄 vercel.json
+- 📄 watch.html

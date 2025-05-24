@@ -64,17 +64,22 @@ async function renderPage(filePath, password) {
 app.get(['/', '/index.html', '/player.html'], async (req, res) => {
   try {
     let filePath;
+    let htmlBasePath = path.join(__dirname, 'html');
     switch (req.path) {
       case '/player.html':
-        filePath = path.join(__dirname, 'player.html');
+        filePath = path.join(htmlBasePath, 'player.html');
         break;
       default: // '/' 和 '/index.html'
-        filePath = path.join(__dirname, 'index.html');
+        filePath = path.join(htmlBasePath, 'index.html');
         break;
     }
     
     const content = await renderPage(filePath, config.password);
-    res.send(content);
+    //添加全局js
+    const injectedScript = `<script src="js/global.js"></script>`;
+    const finalContent = content.replace('<head>', `<head>\n${injectedScript}\n`);
+    //返回响应html
+    res.send(finalContent);
   } catch (error) {
     console.error('页面渲染错误:', error);
     res.status(500).send('读取静态页面失败');
