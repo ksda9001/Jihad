@@ -28,60 +28,67 @@ async function fetchVersion(url, errorMessage, options = {}) {
 
 // 版本检查函数
 async function checkForUpdates() {
-    try {
-        // 获取当前版本
-        const currentVersion = await fetchVersion('/VERSION.txt', '获取当前版本失败', {
-            cache: 'no-store'
-        });
+    // try {
+    //     // 获取当前版本
+    //     const currentVersion = await fetchVersion('/VERSION.txt', '获取当前版本失败', {
+    //         cache: 'no-store'
+    //     });
         
-        // 获取最新版本
-        let latestVersion;
-        const VERSION_URL = {
-            PROXY: 'https://raw.ihtw.moe/raw.githubusercontent.com/LibreSpark/LibreTV/main/VERSION.txt',
-            DIRECT: 'https://raw.githubusercontent.com/LibreSpark/LibreTV/main/VERSION.txt'
-        };
-        const FETCH_TIMEOUT = 1500;
+    //     // 获取最新版本
+    //     let latestVersion;
+    //     const VERSION_URL = {
+    //         PROXY: 'https://raw.ihtw.moe/raw.githubusercontent.com/LibreSpark/LibreTV/main/VERSION.txt',
+    //         DIRECT: 'https://raw.githubusercontent.com/LibreSpark/LibreTV/main/VERSION.txt'
+    //     };
+    //     const FETCH_TIMEOUT = 1500;
         
-        try {
-            // 尝试使用代理URL获取最新版本
-            const proxyPromise = fetchVersion(VERSION_URL.PROXY, '代理请求失败');
-            const timeoutPromise = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('代理请求超时')), FETCH_TIMEOUT)
-            );
+    //     try {
+    //         // 尝试使用代理URL获取最新版本
+    //         const proxyPromise = fetchVersion(VERSION_URL.PROXY, '代理请求失败');
+    //         const timeoutPromise = new Promise((_, reject) => 
+    //             setTimeout(() => reject(new Error('代理请求超时')), FETCH_TIMEOUT)
+    //         );
             
-            latestVersion = await Promise.race([proxyPromise, timeoutPromise]);
-            console.log('通过代理服务器获取版本成功');
-        } catch (error) {
-            console.log('代理请求失败，尝试直接请求:', error.message);
-            try {
-                // 代理失败后尝试直接获取
-                latestVersion = await fetchVersion(VERSION_URL.DIRECT, '获取最新版本失败');
-                console.log('直接请求获取版本成功');
-            } catch (directError) {
-                console.error('所有版本检查请求均失败:', directError);
-                throw new Error('无法获取最新版本信息');
-            }
-        }
+    //         latestVersion = await Promise.race([proxyPromise, timeoutPromise]);
+    //         console.log('通过代理服务器获取版本成功');
+    //     } catch (error) {
+    //         console.log('代理请求失败，尝试直接请求:', error.message);
+    //         try {
+    //             // 代理失败后尝试直接获取
+    //             latestVersion = await fetchVersion(VERSION_URL.DIRECT, '获取最新版本失败');
+    //             console.log('直接请求获取版本成功');
+    //         } catch (directError) {
+    //             console.error('所有版本检查请求均失败:', directError);
+    //             throw new Error('无法获取最新版本信息');
+    //         }
+    //     }
         
-        console.log('当前版本:', currentVersion);
-        console.log('最新版本:', latestVersion);
+    //     console.log('当前版本:', currentVersion);
+    //     console.log('最新版本:', latestVersion);
         
-        // 清理版本字符串（移除可能的空格或换行符）
-        const cleanCurrentVersion = currentVersion.trim();
-        const cleanLatestVersion = latestVersion.trim();
+    //     // 清理版本字符串（移除可能的空格或换行符）
+    //     const cleanCurrentVersion = currentVersion.trim();
+    //     const cleanLatestVersion = latestVersion.trim();
         
-        // 返回版本信息
-        return {
-            current: cleanCurrentVersion,
-            latest: cleanLatestVersion,
-            hasUpdate: parseInt(cleanLatestVersion) > parseInt(cleanCurrentVersion),
-            currentFormatted: formatVersion(cleanCurrentVersion),
-            latestFormatted: formatVersion(cleanLatestVersion)
+    //     // 返回版本信息
+    //     return {
+    //         current: cleanCurrentVersion,
+    //         latest: cleanLatestVersion,
+    //         hasUpdate: parseInt(cleanLatestVersion) > parseInt(cleanCurrentVersion),
+    //         currentFormatted: formatVersion(cleanCurrentVersion),
+    //         latestFormatted: formatVersion(cleanLatestVersion)
+    //     };
+    // } catch (error) {
+    //     console.error('版本检测出错:', error);
+    //     throw error;
+    // }
+
+
+    //取消版本检测
+    return {
+            hasUpdate: false,
+            currentFormatted: '1.0.0',
         };
-    } catch (error) {
-        console.error('版本检测出错:', error);
-        throw error;
-    }
 }
 
 // 格式化版本号为可读形式 (yyyyMMddhhmm -> yyyy-MM-dd hh:mm)

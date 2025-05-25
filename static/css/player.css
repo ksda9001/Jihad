@@ -182,3 +182,23 @@ input:checked + .slider:before {
         margin-bottom: 4px;
     }
 }
+
+
+/* 让提示框出现在播放器容器顶部居中 */
+/* 播放器内部的提示框样式 ，调用方式dp.notice("tishi", 2000) */
+/* .dplayer-notice {
+  position: absolute !important;
+  top: 10px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  display: inline-block !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: #fff !important;
+  padding: 6px 12px !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  max-width: 80% !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+} */

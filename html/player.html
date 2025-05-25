@@ -6,15 +6,15 @@
     <title>星空影城 - 播放器</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="./image/mainLogo.png">
-    <link rel="apple-touch-icon" href="./image/mainLogo.png">
-    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="/static/image/mainLogo.png">
+    <link rel="apple-touch-icon" href="/static/image/mainLogo.png">
+    <link rel="manifest" href="/static/manifest.json">
 
-    <script src="libs/tailwindcss.min.js"></script>
-    <script src="js/wakelock.js"></script>
-    <script src="js/version-check.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/player.css">
+    <script src="/static/libs/js/tailwindcss.min.js"></script>
+    <script src="/static/js/wakelock.js"></script>
+    <script src="/static/js/version-check.js"></script>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/player.css">
 </head>
 <body>
     <header class="bg-[#111] p-4 flex items-center border-b border-[#333] gap-2 player-header">
@@ -104,6 +104,17 @@
                 
                 <!-- 把各种功能按钮放在右侧 - 在小屏幕上各自占一行 -->
                 <div class="flex flex-wrap justify-end gap-2">
+
+
+
+                     <!-- TODO 待播放页面内添加切换播放源功能 -->
+                    <select onchange="handleSelectChange(this)" class="px-3 py-1 bg-[#222] text-white border border-[#333] rounded-lg">
+                        <option value="default">切换播放源（功能待添加）</option>
+                        <option value="latest">黑木耳</option>
+                        <option value="popular">360</option>
+                        <option value="recommended">推荐</option>
+                    </select>
+
                     <!-- 倒序排列按钮 -->
                     <button onclick="toggleEpisodeOrder()" class="px-3 py-1 bg-[#222] hover:bg-[#333] border border-[#333] rounded-lg transition-colors flex items-center space-x-1 flex-shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" id="orderIcon" viewBox="0 0 20 20" fill="currentColor">
@@ -180,19 +191,19 @@
     </footer>
 
     <!-- 引入纯 JS sha256（HTTP 下依然可用） -->
-    <script src="libs/sha256.min.js"></script>
+    <script src="/static/libs/js/sha256.min.js"></script>
     <script>
         // 保存原始 js‑sha256 实现，避免被 password.js 覆盖
         window._jsSha256 = window.sha256;
     </script>
     
-    <script src="libs/hls.min.js" crossorigin="anonymous"></script>
-    <script src="libs/DPlayer.min.js" crossorigin="anonymous"></script>
+    <script src="/static/libs/js/hls.min.js" crossorigin="anonymous"></script>
+    <script src="/static/libs/js/DPlayer.min.js" crossorigin="anonymous"></script>
 
-    <script src="js/config.js"></script>
-    <script src="js/password.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/player.js"></script>
+    <script src="/static/js/config.js"></script>
+    <script src="/static/js/password.js"></script>
+    <script src="/static/js/ui.js"></script>
+    <script src="/static/js/player.js"></script>
 
     <script>
         // 创建全局环境变量对象

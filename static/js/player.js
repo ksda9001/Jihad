@@ -19,7 +19,7 @@ let currentVideoUrl = ''; // 记录当前实际的视频URL
 const speeds = [0.25, 0.5, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4, 4.5, 5]; // 可选倍速
 
 // 封面图片列表
-const videoCoverImageBasePath = "image/video-cover/";
+const videoCoverImageBasePath = "image/player/";
 const coverImages = [
     videoCoverImageBasePath + 'moon-2762111_1280.jpg',
     videoCoverImageBasePath + 'moon-3568835_1280.jpg',
@@ -28,6 +28,15 @@ const coverImages = [
 ];
 
 
+// 引入 CSS
+const fontAwesomeLink = document.createElement('link');
+fontAwesomeLink.rel = 'stylesheet';
+fontAwesomeLink.href = '/static/libs/css/font-awesome-6.7.2.min.css';
+document.head.appendChild(fontAwesomeLink);
+// 引入 JS
+// const fontAwesomeScript = document.createElement('script');
+// fontAwesomeScript.src = 'libs/js/font-awesome-6.7.2.min.js';
+// document.head.appendChild(fontAwesomeScript);
 
 // 改进返回功能
 function goBack(e) {
@@ -1531,23 +1540,33 @@ function addPlayerControls() {
     if (controlBar && playBtn && !document.querySelector('.dplayer-prev')) {
         // 创建“上一集”按钮
         const prevBtn = document.createElement('button');
-        prevBtn.innerText = '上一集';
+        prevBtn.innerHTML = `
+           <i class="fas fa-step-backward"></i>
+            `;
         prevBtn.className = 'dplayer-prev';
         prevBtn.style.marginRight = '8px';
         prevBtn.onclick = () => {
             // 处理上一集逻辑
             console.log('点击了上一集');
+            if (currentEpisodeIndex <= 0) {
+                dp.notice('没有上一集', 2000); // 第二个参数为显示时间（毫秒）
+                return;
+            }
             playPreviousEpisode();
         };
 
         // 创建“下一集”按钮
         const nextBtn = document.createElement('button');
-        nextBtn.innerText = '下一集';
+        nextBtn.innerHTML = '<i class="fa-solid fa-forward-step"></i>';
         nextBtn.className = 'dplayer-next';
         nextBtn.style.marginLeft = '8px';
         nextBtn.onclick = () => {
             // 处理下一集逻辑
             console.log('点击了下一集');
+            if (currentEpisodeIndex >= currentEpisodes.length - 1) {
+                dp.notice('没有下一集', 2000); // 第二个参数为显示时间（毫秒）
+                return;
+            }
             playNextEpisode();
         };
 
@@ -1582,6 +1601,7 @@ function addPlayerSpeedButton() {
     // 用 span 显示按钮文字，方便只改文字
     const speedText = document.createElement('span');
     speedText.innerText = '倍速';
+    speedText.id = 'player-speed-btn';
     speedBtn.appendChild(speedText);
 
     // 菜单容器向上显示，且无背景色
@@ -1616,10 +1636,11 @@ function addPlayerSpeedButton() {
         option.addEventListener('click', (e) => {
             e.stopPropagation();
             dp.video.playbackRate = speed;
-            speedText.innerText = speed + 'x';
+            // speedText.innerText = speed + 'x';
             speedOptions.style.display = 'none';
             isSpeedOptionsVisible = false;
             console.log(`设置倍速为 ${speed}x`);
+            dp.notice(speed + 'x', 2000); // 第二个参数为显示时间（毫秒）
         });
 
         option.addEventListener('mouseenter', () => option.style.background = 'rgba(255,255,255,0.1)');
@@ -1667,5 +1688,7 @@ function addPlayerSpeedButton() {
 function playerRateChange() {
     console.log('倍速变化:', dp.video.playbackRate);
     // 显示倍速提示
+    const playerSpeedButton=document.getElementById('player-speed-btn')
+    playerSpeedButton.innerText = dp.video.playbackRate + 'x';
 
 }

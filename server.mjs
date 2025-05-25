@@ -60,7 +60,7 @@ async function renderPage(filePath, password) {
   }
   
   //添加全局js
-  const injectedScript = `<script src="js/global.js"></script>`;
+  const injectedScript = `<script src="/static/js/global.js"></script>`;
   content = content.replace('<head>', `<head>\n${injectedScript}\n`);
     //返回响应html
   return content;
@@ -220,7 +220,7 @@ app.get('/proxy/:encodedUrl', async (req, res) => {
   }
 });
 
-app.use(express.static(path.join(__dirname), {
+app.use('/static',express.static(path.join(__dirname,'static'), {
   maxAge: config.cacheMaxAge
 }));
 
