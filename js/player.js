@@ -16,12 +16,11 @@ let shortcutHintTimeout = null; // 用于控制快捷键提示显示时间
 let adFilteringEnabled = true; // 默认开启广告过滤
 let progressSaveInterval = null; // 定期保存进度的计时器
 let currentVideoUrl = ''; // 记录当前实际的视频URL
-const speeds = [0.5, 1,1.25, 1.5,1.75, 2,2.5, 3,3.5,4,4.5,5]; // 可选倍速
+const speeds = [0.25, 0.5, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4, 4.5, 5]; // 可选倍速
 
 // 封面图片列表
 const videoCoverImageBasePath = "image/video-cover/";
 const coverImages = [
-    // videoCoverImageBasePath+'mainLogo.png',
     videoCoverImageBasePath + 'moon-2762111_1280.jpg',
     videoCoverImageBasePath + 'moon-3568835_1280.jpg',
     videoCoverImageBasePath + 'moon-3568836_1280.jpg',
@@ -1563,98 +1562,98 @@ function addPlayerControls() {
  * TODO 第一次点击显示倍速框，选择倍速后点击不显示
  */
 function addPlayerSpeedButton() {
-  const settingButton = dp.container.querySelector('.dplayer-setting-icon');
-  if (!settingButton || document.querySelector('.dplayer-speed')) return;
+    const settingButton = dp.container.querySelector('.dplayer-setting-icon');
+    if (!settingButton || document.querySelector('.dplayer-speed')) return;
 
-//   const speeds = [0.5, 1, 1.25, 1.5, 2];
+    //   const speeds = [0.5, 1, 1.25, 1.5, 2];
 
-  const speedBtn = document.createElement('button');
-  speedBtn.className = 'dplayer-speed';
-  Object.assign(speedBtn.style, {
-    marginLeft: '8px',
-    position: 'relative',
-    background: 'transparent',  // 按钮背景透明
-    color: '#fff',
-    border: 'none',
-    padding: '4px 8px',
-    cursor: 'pointer',
-  });
-
-  // 用 span 显示按钮文字，方便只改文字
-  const speedText = document.createElement('span');
-  speedText.innerText = '倍速';
-  speedBtn.appendChild(speedText);
-
-  // 菜单容器向上显示，且无背景色
-  const speedOptions = document.createElement('div');
-  Object.assign(speedOptions.style, {
-    position: 'absolute',
-    bottom: '100%',  // 向上显示菜单
-    left: '0',
-    background: '#222',   // 菜单背景色，深色，方便看清
-    color: '#fff',
-    padding: '6px 0',
-    borderRadius: '4px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.7)', // 添加阴影更有层次
-    display: 'none',
-    minWidth: '60px',
-    zIndex: '9999',
-    textAlign: 'center',
-    userSelect: 'none',
-  });
-
-  let isSpeedOptionsVisible = false;
-
-  speeds.forEach(speed => {
-    const option = document.createElement('div');
-    option.innerText = speed + 'x';
-    Object.assign(option.style, {
-      padding: '4px 10px',
-      cursor: 'pointer',
-      userSelect: 'none',
+    const speedBtn = document.createElement('button');
+    speedBtn.className = 'dplayer-speed';
+    Object.assign(speedBtn.style, {
+        marginLeft: '8px',
+        position: 'relative',
+        background: 'transparent',  // 按钮背景透明
+        color: '#fff',
+        border: 'none',
+        padding: '4px 8px',
+        cursor: 'pointer',
     });
 
-    option.addEventListener('click', (e) => {
-      e.stopPropagation();
-      dp.video.playbackRate = speed;
-      speedText.innerText = speed + 'x';
-      speedOptions.style.display = 'none';
-      isSpeedOptionsVisible = false;
-      console.log(`设置倍速为 ${speed}x`);
+    // 用 span 显示按钮文字，方便只改文字
+    const speedText = document.createElement('span');
+    speedText.innerText = '倍速';
+    speedBtn.appendChild(speedText);
+
+    // 菜单容器向上显示，且无背景色
+    const speedOptions = document.createElement('div');
+    Object.assign(speedOptions.style, {
+        position: 'absolute',
+        bottom: '100%',  // 向上显示菜单
+        left: '0',
+        background: '#222',   // 菜单背景色，深色，方便看清
+        color: '#fff',
+        padding: '6px 0',
+        borderRadius: '4px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.7)', // 添加阴影更有层次
+        display: 'none',
+        minWidth: '60px',
+        zIndex: '9999',
+        textAlign: 'center',
+        userSelect: 'none',
     });
 
-    option.addEventListener('mouseenter', () => option.style.background = 'rgba(255,255,255,0.1)');
-    option.addEventListener('mouseleave', () => option.style.background = 'transparent');
+    let isSpeedOptionsVisible = false;
 
-    speedOptions.appendChild(option);
-  });
+    speeds.forEach(speed => {
+        const option = document.createElement('div');
+        option.innerText = speed + 'x';
+        Object.assign(option.style, {
+            padding: '4px 10px',
+            cursor: 'pointer',
+            userSelect: 'none',
+        });
 
-  speedBtn.appendChild(speedOptions);
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dp.video.playbackRate = speed;
+            speedText.innerText = speed + 'x';
+            speedOptions.style.display = 'none';
+            isSpeedOptionsVisible = false;
+            console.log(`设置倍速为 ${speed}x`);
+        });
 
-  speedBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (isSpeedOptionsVisible) {
-      speedOptions.style.display = 'none';
-      console.log('隐藏倍速菜单');
-    } else {
-      speedOptions.style.display = 'block';
-      console.log('显示倍速菜单');
-    }
-    isSpeedOptionsVisible = !isSpeedOptionsVisible;
-  });
+        option.addEventListener('mouseenter', () => option.style.background = 'rgba(255,255,255,0.1)');
+        option.addEventListener('mouseleave', () => option.style.background = 'transparent');
 
-  document.addEventListener('click', (e) => {
-    if (!speedBtn.contains(e.target)) {
-      if (isSpeedOptionsVisible) {
-        speedOptions.style.display = 'none';
-        isSpeedOptionsVisible = false;
-        console.log('点击页面其他地方，隐藏倍速菜单');
-      }
-    }
-  });
+        speedOptions.appendChild(option);
+    });
 
-  settingButton.parentNode.insertBefore(speedBtn, settingButton);
-  console.log('成功添加倍速按钮');
+    speedBtn.appendChild(speedOptions);
+
+    speedBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isSpeedOptionsVisible) {
+            speedOptions.style.display = 'none';
+            console.log('隐藏倍速菜单');
+        } else {
+            speedOptions.style.display = 'block';
+            console.log('显示倍速菜单');
+        }
+        isSpeedOptionsVisible = !isSpeedOptionsVisible;
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!speedBtn.contains(e.target)) {
+            if (isSpeedOptionsVisible) {
+                speedOptions.style.display = 'none';
+                isSpeedOptionsVisible = false;
+                console.log('点击页面其他地方，隐藏倍速菜单');
+            }
+        }
+    });
+
+    settingButton.parentNode.insertBefore(speedBtn, settingButton);
+    console.log('成功添加倍速按钮');
 }
 
 
@@ -1665,7 +1664,7 @@ function addPlayerSpeedButton() {
 /**
  * 播放器倍速变化事件
  */
-function playerRateChange(){
+function playerRateChange() {
     console.log('倍速变化:', dp.video.playbackRate);
     // 显示倍速提示
 

@@ -66,19 +66,54 @@ async function renderPage(filePath, password) {
   return content;
 }
 
-app.get(['/', '/index.html', '/player.html'], async (req, res) => {
-  try {
-    let filePath;
-    let htmlBasePath = path.join(__dirname, 'html');
-    switch (req.path) {
-      case '/player.html':
-        filePath = path.join(htmlBasePath, 'player.html');
-        break;
-      default: // '/' 和 '/index.html'
-        filePath = path.join(htmlBasePath, 'index.html');
-        break;
-    }
+// app.get(['/', '/index.html', '/player.html','/watch.html'], async (req, res) => {
+//   try {
+//     let filePath;
+//     let htmlBasePath = path.join(__dirname, 'html');
+//     switch (req.path) {
+//       case '/player.html':
+//         filePath = path.join(htmlBasePath, 'player.html');
+//         break;
+//       case '/watch.html':
+//         filePath = path.join(htmlBasePath, 'watch.html');
+//         break;
+//       default: // '/' 和 '/index.html'
+//         filePath = path.join(htmlBasePath, 'index.html');
+//         break;
+//     }
     
+//     const content = await renderPage(filePath, config.password);
+//     res.send(content);
+//   } catch (error) {
+//     console.error('页面渲染错误:', error);
+//     res.status(500).send('读取静态页面失败');
+//   }
+// });
+
+
+//使用正则匹配所有html页面
+app.get(/^(\/$|\/.*\.html|\/s=.*)$/, async (req, res) => {
+  try {
+    //html的基本路径
+    const htmlBasePath = path.join(__dirname, 'html');
+    let filePath;
+
+    
+    if (req.path === '/' || req.path === '/index.html') {//首页
+      filePath = path.join(htmlBasePath, 'index.html');
+    } else if (req.path.startsWith('/s=')) {//搜索
+      filePath = path.join(htmlBasePath, 'index.html');
+    } else {
+      // 处理其他 .html 页面
+      const relativePath = req.path.replace(/^\//, '');
+      filePath = path.join(htmlBasePath, relativePath);
+    }
+
+    if (!fs.existsSync(filePath)) {
+      console.warn('文件不存在:', filePath);
+      return res.status(404).send('页面不存在');
+    }
+
     const content = await renderPage(filePath, config.password);
     res.send(content);
   } catch (error) {
@@ -87,16 +122,16 @@ app.get(['/', '/index.html', '/player.html'], async (req, res) => {
   }
 });
 
-app.get('/s=:keyword', async (req, res) => {
-  try {
-    const filePath = path.join(__dirname, 'index.html');
-    const content = await renderPage(filePath, config.password);
-    res.send(content);
-  } catch (error) {
-    console.error('搜索页面渲染错误:', error);
-    res.status(500).send('读取静态页面失败');
-  }
-});
+// app.get('/s=:keyword', async (req, res) => {
+//   try {
+//     const filePath = path.join(__dirname, 'index.html');
+//     const content = await renderPage(filePath, config.password);
+//     res.send(content);
+//   } catch (error) {
+//     console.error('搜索页面渲染错误:', error);
+//     res.status(500).send('读取静态页面失败');
+//   }
+// });
 
 function isValidUrl(urlString) {
   try {
