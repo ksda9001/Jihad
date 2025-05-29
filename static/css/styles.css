@@ -8,6 +8,53 @@
 - modals.css: 模态框和提示框样式
 */
 
+/* 返回顶部按钮 */
+.mica-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2); /* 半透明背景 */
+  backdrop-filter: blur(10px) saturate(180%); /* Mica质感 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              backdrop-filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 悬停时按钮变大，增强模糊效果 */
+.mica-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px) saturate(200%);
+}
+
+/* 按钮点击时缩小并回弹 */
+.mica-btn:active {
+  transform: scale(0.93); /* 轻微缩小 */
+  transition: transform 0.15s cubic-bezier(0.3, 0, 0.7, 1.5); /* 增加弹性 */
+}
+
+/* 伪元素添加向上箭头 */
+.mica-btn::before {
+  content: "\1F851"; /* Unicode向上箭头 */
+  font-size: 32px;
+  color: white;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 悬停时箭头稍微变亮 */
+.mica-btn:hover::before {
+  opacity: 0.85;
+}
+
 .close-btn {
     position: absolute;
     top: 12px;
