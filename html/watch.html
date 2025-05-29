@@ -5,23 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="3; url=player.html">
     <title>正在跳转到播放器...</title>
+    <script src="/static/libs/js/tailwindcss.min.js"></script>
     <link rel="manifest" href="/static/manifest.json">
+    <link rel="stylesheet" href="/static/css/styles.css">
     <link rel="stylesheet" href="/static/css/watch.css">
     <script src="/static/js/watch.js"></script>
-    
 </head>
-<body>
-    <div class="redirect-container">
-        <div class="logo-container">
-            <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-            </svg>
-            <h1 class="logo-text">星空影城</h1>
+<body class="page-bg text-white min-h-screen flex items-center justify-center">
+    <div class="bg-[#ffffff08] backdrop-blur-xl rounded-2xl p-8 border border-[#ffffff0a] shadow-lg transition-all duration-300 hover:shadow-xl max-w-md w-full mx-4">
+        <div class="flex flex-col items-center space-y-6">
+            <!-- Logo容器 -->
+            <div class="flex items-center group">
+                <svg class="w-12 h-12 mr-3 text-[#60a5fa] transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                </svg>
+                <h1 class="text-3xl font-bold gradient-text opacity-90 group-hover:opacity-100 transition-opacity">星空影城</h1>
+            </div>
+
+            <!-- 加载动画 -->
+            <div class="loading-ring">
+                <div></div><div></div><div></div><div></div>
+            </div>
+
+            <!-- 状态信息 -->
+            <div class="space-y-2 text-center">
+                <div class="text-[#ffffff90] text-lg">正在加载播放器...</div>
+                <div id="redirect-status" class="text-[#ffffff70] text-sm">准备视频数据中，请稍候...</div>
+            </div>
+
+            <!-- 手动跳转链接 -->
+            <p class="text-[#ffffff60] text-sm">
+                如果页面没有自动跳转，请
+                <a href="player.html" id="manual-redirect" class="text-[#60a5fa] hover:text-white relative inline-block group">
+                    点击这里
+                    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-[#60a5fa] to-transparent group-hover:w-full transition-all duration-300"></span>
+                </a>
+            </p>
         </div>
-        <div class="loading-animation"></div>
-        <div class="redirect-message">正在加载播放器...</div>
-        <div id="redirect-status">准备视频数据中，请稍候...</div>
-        <p class="redirect-hint">如果页面没有自动跳转，请<a href="player.html" id="manual-redirect">点击这里</a></p>
     </div>
 </body>
 </html>
