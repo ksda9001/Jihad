@@ -1,19 +1,4 @@
 // UI相关函数
-// 返回顶部按钮，监听滚动事件，控制按钮的显示
-window.onscroll = function() {
-    let topBtn = document.getElementById("topBtn");
-    if (document.documentElement.scrollTop > 200) {
-        topBtn.style.display = "block";
-    } else {
-        topBtn.style.display = "none";
-    }
-};
-
-// 返回顶部函数
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
 function toggleSettings(e) {
     // 密码保护校验
     if (window.isPasswordProtected && window.isPasswordVerified) {

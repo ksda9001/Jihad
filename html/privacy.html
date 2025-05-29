@@ -9,27 +9,87 @@
 	<link rel="stylesheet" href="/static/css/styles.css">
 	<link rel="manifest" href="/static/manifest.json">
 </head>
-<body class="page-bg text-white">
-	<div class="container mx-auto px-4 py-8">
-		<header class="text-center mb-8">
-			<h1 class="text-5xl font-bold gradient-text">隐私政策</h1>
-		</header>
-		<main class="text-center">
-			<p class="text-gray-300 mb-4">
-				我们尊重并保护您的隐私。星空影城 不收集任何个人数据，且不会限制访问或使用本网站。
-			</p>
-			<p class="text-gray-300">
-				本平台仅用于提供在线视频搜索与播放服务。所有数据均由第三方接口提供，我们不会存储或追踪用户信息。
-			</p>
-		</main>
+<body class="page-bg text-white min-h-screen">
+    <!-- 顶部导航条 -->
+    <nav class="fixed top-0 left-0 right-0 bg-[#ffffff03] backdrop-blur-xl border-b border-[#ffffff08] z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="flex items-center group">
+                    <svg class="w-8 h-8 mr-2 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 10l-5.878 12.056L30 23.708l10 9.848-2.361 13.888L50 40l12.361 7.444L60 33.556l10-9.848-14.122-1.652L50 10z" fill="#FFD700" stroke="currentColor" stroke-width="1"/>
+                        <path d="M60 15l-4.702 9.645L44 25.966l8 7.879-1.889 11.11L60 39l9.889 5.955L68 33.845l8-7.879-11.298-1.321L60 15z" fill="#FFA500" stroke="currentColor" stroke-width="1"/>
+                        <path d="M70 20l-3.527 7.234L58 28.475l6 5.909-1.417 8.333L70 38l7.417 4.467L76 34.384l6-5.909-8.473-.991L70 20z" fill="#FF8C00" stroke="currentColor" stroke-width="1"/>
+                    </svg>
+                    <span class="gradient-text font-bold opacity-90 group-hover:opacity-100 transition-opacity">星空影城</span>
+                </a>
+                <a href="/" class="text-[#ffffff60] hover:text-white transition-all hover:translate-y-[-2px] flex items-center group">
+                    <span class="relative">
+                        返回首页
+                        <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-[#60a5fa] to-transparent group-hover:w-full transition-all duration-300"></span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </nav>
 
-		<!-- 返回顶部按钮-->
-        <button class="mica-btn" onclick="scrollToTop()"></button>
-		<footer class="mt-12 text-center">
-			<div class="flex justify-center space-x-4">
-				<a href="/" class="text-gray-400 hover:text-white transition-colors">回到首页</a>
-			</div>
-		</footer>
-	</div>
+    <div class="container mx-auto px-4 py-8 pt-24">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">隐私政策</h1>
+            <p class="text-[#ffffff70] text-lg">Privacy Policy</p>
+        </header>
+
+        <main class="max-w-3xl mx-auto">
+            <div class="bg-[#ffffff08] backdrop-blur-xl rounded-2xl p-8 border border-[#ffffff0a] shadow-lg transition-all duration-300 hover:shadow-xl space-y-6">
+                <div class="space-y-4">
+                    <p class="text-[#ffffff90] text-lg leading-relaxed">
+                        我们尊重并保护您的隐私。星空影城 不收集任何个人数据，且不会限制访问或使用本网站。
+                    </p>
+                    <p class="text-[#ffffff90] text-lg leading-relaxed">
+                        本平台仅用于提供在线视频搜索与播放服务。所有数据均由第三方接口提供，我们不会存储或追踪用户信息。
+                    </p>
+                </div>
+                
+                <!-- 隐私保护要点 -->
+                <div class="mt-8 grid gap-4 sm:grid-cols-2">
+                    <div class="p-6 bg-[#ffffff05] rounded-xl border border-[#ffffff08] hover:border-[#ffffff15] transition-all duration-300">
+                        <svg class="w-8 h-8 text-[#60a5fa] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        <h3 class="text-[#ffffff90] text-lg font-medium mb-2">数据安全</h3>
+                        <p class="text-[#ffffff70]">无需注册账号，不收集任何个人信息，保护您的隐私安全。</p>
+                    </div>
+                    <div class="p-6 bg-[#ffffff05] rounded-xl border border-[#ffffff08] hover:border-[#ffffff15] transition-all duration-300">
+                        <svg class="w-8 h-8 text-[#60a5fa] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                        </svg>
+                        <h3 class="text-[#ffffff90] text-lg font-medium mb-2">第三方数据</h3>
+                        <p class="text-[#ffffff70]">所有内容由第三方接口提供，不进行任何数据存储。</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 返回顶部按钮: 调整位置和层级 -->
+        <button class="mica-btn fixed bottom-20 right-8 z-50" onclick="scrollToTop()">
+            <svg class="w-6 h-6 text-[#ffffff90]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
+
+        <!-- 页脚 -->
+        <footer class="mt-12 py-6 text-center border-t border-[#ffffff0a]">
+            <div class="text-[#ffffff50] hover:text-[#ffffff70] transition-colors">
+                © 2025 星空影城 - 免费影视大全
+            </div>
+        </footer>
+    </div>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+	<!-- 在底部引入 scroll.js -->
+    <script src="/static/js/scroll.js"></script>
 </body>
 </html>

@@ -168,36 +168,42 @@
 
             <div id="searchArea" class="flex-1 flex flex-col items-center justify-center">
                 <div class="w-full max-w-2xl">
-                    <div class="flex items-stretch mb-3 h-14 shadow-lg rounded-lg overflow-hidden">
-                        <!-- 首页按钮 -->
+                    <div class="flex items-stretch mb-3 h-14 bg-[#ffffff0a] backdrop-blur-xl border border-[#ffffff1a] rounded-2xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(0,0,0,0.15)]">
+                        <!-- 首页按钮：更柔和的渐变和阴影 -->
                         <button onclick="resetToHome()" 
-                                class="w-20 sm:w-24 flex items-center justify-center bg-white text-black font-medium hover:bg-gray-200 transition-colors" 
+                                class="w-20 sm:w-24 flex items-center justify-center bg-gradient-to-br from-[#ffffff0a] to-[#ffffff05] text-[#f1f3fa] font-medium rounded-l-2xl border-r border-[#ffffff1a] hover:bg-[#ffffff15] active:bg-[#ffffff0a] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] focus-visible:ring-offset-1 focus-visible:ring-offset-[#20222a]"
                                 aria-label="返回首页" title="返回首页">
                             首页
                         </button>
-                        <!-- 搜索输入 -->
+                        <!-- 搜索输入框：磨砂玻璃效果 -->
                         <input type="text" 
                                id="searchInput" 
-                               class="flex-1 bg-[#111] border-y border-[#333] text-white px-6 py-0 focus:outline-none transition-colors" 
+                               class="flex-1 bg-transparent border-0 text-[#f1f3fa] px-6 py-0 placeholder-[#ffffff50] focus:outline-none focus:placeholder-[#ffffff30] transition-all duration-200 font-medium text-base"
                                placeholder="搜索你喜欢的视频..." 
                                autocomplete="off"
                                aria-label="视频搜索框"
                                oninput="toggleClearButton()">
-                        <!-- 清空按钮 -->
+                        <!-- 清空按钮：更细腻的悬浮效果 -->
                         <button id="clearSearchInput" 
-                                class="flex pr-2 bg-[#111] border-y border-[#333] items-center justify-center text-gray-400 hover:text-white hidden"
+                                class="flex px-4 bg-transparent items-center justify-center text-[#ffffff50] hover:text-[#ffffff90] transition-colors duration-200 hidden"
                                 onclick="clearSearchInput()"
                                 aria-label="清空搜索框"
                                 title="清空搜索框">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
                         </button>
-                        <!-- 搜索按钮 -->
+                        <!-- 搜索按钮：亚克力效果和柔和的光晕 -->
                         <button onclick="search()" 
-                                class="w-20 sm:w-24 flex items-center justify-center bg-white text-black font-medium hover:bg-gray-200 transition-colors" 
+                                class="w-20 sm:w-24 flex items-center justify-center bg-[#60a5fa] bg-opacity-20 backdrop-blur-lg text-white font-medium rounded-r-2xl border-l border-[#ffffff1a] hover:bg-opacity-30 active:bg-opacity-15 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] focus-visible:ring-offset-1 focus-visible:ring-offset-[#20222a] relative overflow-hidden group"
                                 aria-label="搜索按钮">
-                            搜索
+                            <span class="relative z-10 flex items-center">
+                                搜索
+                                <svg class="w-4 h-4 ml-1 opacity-70 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                            </span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-[#60a5fa20] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </button>
                     </div>
                     
@@ -256,19 +262,23 @@
                 </div>
             </div>
 
-            <!-- 返回顶部按钮-->
-            <button class="mica-btn" onclick="scrollToTop()"></button>
+            <!-- 返回顶部按钮: 调整位置和层级 -->
+            <button class="mica-btn fixed bottom-20 right-8 z-50" onclick="scrollToTop()">
+                <svg class="w-6 h-6 text-[#ffffff90]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                </svg>
+            </button>
             
         </div>
     </div>
 
     <!-- 页脚区域 -->
-    <footer class="footer mt-8 py-6 border-t border-[#333] bg-[#0a0a0a]">
+    <footer class="footer mt-8 py-6 border-t border-[#ffffff0a] bg-[#ffffff03] backdrop-blur-md">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
-                    <div class="flex items-center justify-center md:justify-start">
-                        <svg class="w-8 h-8 mr-2" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <div class="flex items-center justify-center md:justify-start group">
+                        <svg class="w-8 h-8 mr-2 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <!-- 大星星 -->
                             <path 
                                 d="M50 10l-5.878 12.056L30 23.708l10 9.848-2.361 13.888L50 40l12.361 7.444L60 33.556l10-9.848-14.122-1.652L50 10z"
@@ -291,19 +301,29 @@
                                 stroke-width="1"
                             />
                         </svg>
-                        <span class="gradient-text font-bold">星空影城</span>
+                        <span class="gradient-text font-bold opacity-90 group-hover:opacity-100 transition-opacity">星空影城</span>
                     </div>
-                    <p class="text-gray-500 text-sm mt-2 text-center md:text-left">© 2025 星空影城 - 免费影视大全</p>
+                    <p class="text-[#ffffff50] text-sm mt-2 text-center md:text-left hover:text-[#ffffff70] transition-colors">© 2025 星空影城 - 免费影视大全</p>
                 </div>
                 
                 <div class="text-center md:text-right">
-                    <p class="text-gray-500 text-sm max-w-md">
+                    <p class="text-[#ffffff50] text-sm max-w-md backdrop-blur-sm px-4 py-2 rounded-xl bg-[#ffffff05] border border-[#ffffff08] shadow-lg">
                         免责声明：本站仅为视频搜索工具，不存储、上传或分发任何视频内容。
                         所有视频均来自第三方API接口。如有侵权，请联系相关内容提供方。
                     </p>
-                    <div class="mt-2 flex justify-center md:justify-end space-x-4">
-                        <a href="about.html" class="text-gray-400 hover:text-white text-sm transition-colors">关于我们</a>
-                        <a href="privacy.html" class="text-gray-400 hover:text-white text-sm transition-colors">隐私政策</a>
+                    <div class="mt-4 flex justify-center md:justify-end space-x-6">
+                        <a href="about.html" class="text-[#ffffff60] hover:text-white text-sm transition-all hover:translate-y-[-2px] flex items-center group">
+                            <span class="relative">
+                                关于我们
+                                <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-[#60a5fa] to-transparent group-hover:w-full transition-all duration-300"></span>
+                            </span>
+                        </a>
+                        <a href="privacy.html" class="text-[#ffffff60] hover:text-white text-sm transition-all hover:translate-y-[-2px] flex items-center group">
+                            <span class="relative">
+                                隐私政策
+                                <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-[#60a5fa] to-transparent group-hover:w-full transition-all duration-300"></span>
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -323,24 +343,6 @@
             </div>
         </div>
     </div>
-
-    <!-- 密码验证弹窗 -->
-    <!-- <div id="passwordModal" class="fixed inset-0 bg-black/95 hidden items-center justify-center z-[65] transition-opacity duration-300">
-        <div class="bg-[#111] p-8 rounded-lg w-11/12 max-w-md border border-[#333] max-h-[90vh] flex flex-col">
-            <div class="flex justify-between items-center mb-6 flex-none">
-                <h2 class="text-2xl font-bold gradient-text">访问验证</h2>
-            </div>
-            <div class="mb-6">
-                <p class="text-gray-300 mb-4">请输入密码继续访问</p>
-                <form id="passwordForm" onsubmit="handlePasswordSubmit(); return false;">
-                    <input type="text" name="username" id="username" autocomplete="username" style="display:none" tabindex="-1" aria-hidden="true">
-                    <input type="password" id="passwordInput" class="w-full bg-[#111] border border-[#333] text-white px-4 py-3 rounded-lg focus:outline-none focus:border-white transition-colors" placeholder="密码..." autocomplete="new-password">
-                    <button id="passwordSubmitBtn" type="submit" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">提交</button>
-                </form>
-                <p id="passwordError" class="text-red-500 mt-2 hidden">密码错误，请重试</p>
-            </div>
-        </div>
-    </div> -->
 
     <!-- 版权声明弹窗 -->
     <div id="disclaimerModal" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[60]">
@@ -428,5 +430,7 @@
 
     <!-- 添加弹窗和URL搜索参数处理脚本 -->
     <script src="/static/js/index-page.js"></script>
+    <!-- 在底部引入 scroll.js -->
+    <script src="/static/js/scroll.js"></script>
 </body>
 </html>

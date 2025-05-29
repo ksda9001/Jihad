@@ -27,6 +27,10 @@
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
               box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
               backdrop-filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: all 0.3s ease-in-out;
 }
 
 /* 悬停时按钮变大，增强模糊效果 */
@@ -40,14 +44,6 @@
 .mica-btn:active {
   transform: scale(0.93); /* 轻微缩小 */
   transition: transform 0.15s cubic-bezier(0.3, 0, 0.7, 1.5); /* 增加弹性 */
-}
-
-/* 伪元素添加向上箭头 */
-.mica-btn::before {
-  content: "\1F851"; /* Unicode向上箭头 */
-  font-size: 32px;
-  color: white;
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* 悬停时箭头稍微变亮 */
@@ -598,7 +594,6 @@ body {
 .filter-disabled > * {
     opacity: 1; /* 提高子元素不透明度，保证可见性 */
     z-index: 6; /* 确保内容在遮罩上方 */
-    position: relative;
 }
 
 /* 改进过滤器禁用状态下的描述样式 */

@@ -5,74 +5,114 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>关于我们 - 星空影城</title>
-	<script src="libs/js/tailwindcss.min.js"></script>
+	<script src="/static/libs/js/tailwindcss.min.js"></script>
 	<link rel="stylesheet" href="/static/css/styles.css">
 	<link rel="manifest" href="/static/manifest.json">
 </head>
 
-<body class="page-bg text-white">
-	<div class="container mx-auto px-4 py-8">
-		<header class="text-center mb-8">
-			<h1 class="text-5xl font-bold gradient-text">关于我们</h1>
-		</header>
-		<main class="text-center">
-			<p class="text-gray-300 mb-8">
-				A Norns Interactive Projext
-			</p>
-			<p class="text-gray-300 mb-8">
-				星空影城 是一个免费的在线视频搜索平台，提供视频搜索和播放服务，致力于为用户带来最佳体验。
-			</p>
+<body class="page-bg text-white min-h-screen">
+    <!-- 顶部导航条 -->
+    <nav class="fixed top-0 left-0 right-0 bg-[#ffffff03] backdrop-blur-xl border-b border-[#ffffff08] z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="flex items-center group">
+                    <svg class="w-8 h-8 mr-2 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 10l-5.878 12.056L30 23.708l10 9.848-2.361 13.888L50 40l12.361 7.444L60 33.556l10-9.848-14.122-1.652L50 10z" fill="#FFD700" stroke="currentColor" stroke-width="1"/>
+                        <path d="M60 15l-4.702 9.645L44 25.966l8 7.879-1.889 11.11L60 39l9.889 5.955L68 33.845l8-7.879-11.298-1.321L60 15z" fill="#FFA500" stroke="currentColor" stroke-width="1"/>
+                        <path d="M70 20l-3.527 7.234L58 28.475l6 5.909-1.417 8.333L70 38l7.417 4.467L76 34.384l6-5.909-8.473-.991L70 20z" fill="#FF8C00" stroke="currentColor" stroke-width="1"/>
+                    </svg>
+                    <span class="gradient-text font-bold opacity-90 group-hover:opacity-100 transition-opacity">星空影城</span>
+                </a>
+                <a href="/" class="text-[#ffffff60] hover:text-white transition-all hover:translate-y-[-2px] flex items-center group">
+                    <span class="relative">
+                        返回首页
+                        <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-[#60a5fa] to-transparent group-hover:w-full transition-all duration-300"></span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </nav>
 
-			<!-- 版权声明 -->
-			<div class="mt-12 mb-8 max-w-2xl mx-auto border border-gray-700 rounded-lg p-6 bg-[#111]">
-				<h2 class="text-xl font-semibold mb-4 text-blue-400">版权声明</h2>
-				<p class="text-gray-300 mb-4 text-left">
-					星空影城
-					仅提供视频搜索服务，不直接提供、存储或上传任何视频内容。所有搜索结果均来自第三方公开接口。用户在使用本站服务时，须遵守相关法律法规，不得利用搜索结果从事侵权行为，如下载、传播未经授权的作品等。
-				</p>
-				<p class="text-gray-300 mb-4 text-left">
-				<p>若您是版权方或相关权利人，发现本站搜索结果中存在侵犯您合法权益的内容，请联系本站的内容提供商：</p>
-				<div class="source-list">
-					<a href="http://caiji.dyttzyapi.com">电影天堂资源</a>
-					<a href="https://cj.rycjapi.com">如意资源</a>
-					<a href="https://bfzyapi.com">暴风资源</a>
-					<a href="https://tyyszy.com">天涯资源</a>
-					<a href="http://ffzy5.tv">非凡影视</a>
-					<a href="https://json.heimuer.xyz">黑木耳</a>
-					<a href="https://360zy.com">360资源</a>
-					<a href="https://www.iqiyizyapi.com">iqiyi资源</a>
-					<a href="https://wolongzyw.com">卧龙资源</a>
-					<a href="https://cjhwba.com">华为吧资源</a>
-					<a href="https://jszyapi.com">极速资源</a>
-					<a href="https://dbzy.com">豆瓣资源</a>
-					<a href="https://mozhuazy.com">魔爪资源</a>
-					<a href="https://www.mdzyapi.com">魔都资源</a>
-					<a href="https://api.zuidapi.com">最大资源</a>
-					<a href="https://m3u8.apiyhzy.com">樱花资源</a>
-					<a href="https://api.apibdzy.com">百度云资源</a>
-					<a href="https://api.wujinapi.me">无尽资源</a>
-					<a href="https://wwzy.tv">旺旺短剧</a>
-					<a href="https://ikunzyapi.com">iKun资源</a>
-					<a href="https://www.ckzy1.com">CK资源</a>
-					<a href="https://jkunzyapi.com">jkun资源</a>
-					<a href="https://api.bwzym3u8.com">百万资源</a>
-					<a href="https://api.souavzy.vip">souav资源</a>
-					<a href="https://155api.com">155资源</a>
-					<a href="https://apilsbzy1.com">lsb资源</a>
-					<a href="https://hsckzy.vip">黄色仓库</a>
-					<a href="https://yutuzy10.com">玉兔资源</a>
-				</div>
-				</p>
-			</div>
-		</main>
-		<!-- 返回顶部按钮-->
-        <button class="mica-btn" onclick="scrollToTop()"></button>
-		<footer class="mt-12 text-center">
-			<div class="flex justify-center space-x-4">
-				<a href="/" class="text-gray-400 hover:text-white transition-colors">回到首页</a>
-			</div>
-		</footer>
-	</div>
+    <div class="container mx-auto px-4 py-8 pt-24">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">关于我们</h1>
+            <p class="text-[#ffffff70] text-lg">A Norns Interactive Project</p>
+        </header>
+
+        <main class="max-w-4xl mx-auto">
+            <div class="bg-[#ffffff05] backdrop-blur-md rounded-2xl p-8 mb-12 border border-[#ffffff08] shadow-lg transition-all duration-300 hover:shadow-xl">
+                <p class="text-[#ffffff90] text-lg leading-relaxed mb-8">
+                    星空影城 是一个免费的在线视频搜索平台，提供视频搜索和播放服务，致力于为用户带来最佳体验。
+                </p>
+            </div>
+
+            <!-- 版权声明卡片 -->
+            <div class="bg-[#ffffff08] backdrop-blur-xl rounded-2xl p-8 border border-[#ffffff0a] shadow-lg transition-all duration-300 hover:shadow-xl">
+                <h2 class="text-2xl font-semibold mb-6 gradient-text">版权声明</h2>
+                <div class="space-y-6 text-[#ffffff80]">
+                    <p class="leading-relaxed">
+                        星空影城 仅提供视频搜索服务，不直接提供、存储或上传任何视频内容。所有搜索结果均来自第三方公开接口。用户在使用本站服务时，须遵守相关法律法规，不得利用搜索结果从事侵权行为，如下载、传播未经授权的作品等。
+                    </p>
+                    <p class="leading-relaxed">
+                        若您是版权方或相关权利人，发现本站搜索结果中存在侵犯您合法权益的内容，请联系本站的内容提供商：
+                    </p>
+                    <div class="source-list grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-6">
+                        <!-- 为每个链接添加现代化样式 -->
+                        <a href="http://caiji.dyttzyapi.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">电影天堂资源</a>
+						<a href="https://cj.rycjapi.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">如意资源</a>
+						<a href="https://bfzyapi.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">暴风资源</a>
+						<a href="https://tyyszy.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">天涯资源</a>
+						<a href="http://ffzy5.tv" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">非凡影视</a>
+						<a href="https://json.heimuer.xyz" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">黑木耳</a>
+						<a href="https://360zy.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">360资源</a>
+						<a href="https://www.iqiyizyapi.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">iqiyi资源</a>
+						<a href="https://wolongzyw.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">卧龙资源</a>
+						<a href="https://cjhwba.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">华为吧资源</a>
+						<a href="https://jszyapi.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">极速资源</a>
+						<a href="https://dbzy.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">豆瓣资源</a>
+						<a href="https://mozhuazy.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">魔爪资源</a>
+						<a href="https://www.mdzyapi.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">魔都资源</a>
+						<a href="https://api.zuidapi.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">最大资源</a>
+						<a href="https://m3u8.apiyhzy.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">樱花资源</a>
+						<a href="https://api.apibdzy.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">百度云资源</a>
+						<a href="https://api.wujinapi.me" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">无尽资源</a>
+						<a href="https://wwzy.tv" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">旺旺短剧</a>
+						<a href="https://ikunzyapi.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">iKun资源</a>
+						<a href="https://www.ckzy1.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">CK资源</a>
+						<a href="https://jkunzyapi.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">jkun资源</a>
+						<a href="https://api.bwzym3u8.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">百万资源</a>
+						<a href="https://api.souavzy.vip" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">souav资源</a>
+						<a href="https://155api.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">155资源</a>
+						<a href="https://apilsbzy1.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">lsb资源</a>
+						<a href="https://hsckzy.vip" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">黄色仓库</a>
+						<a href="https://yutuzy10.com" class="px-4 py-2 bg-[#ffffff0a] rounded-xl hover:bg-[#ffffff15] transition-all duration-300 text-center text-sm text-[#ffffff70] hover:text-white truncate">玉兔资源</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 返回顶部按钮: 调整位置和层级 -->
+        <button class="mica-btn fixed bottom-20 right-8 z-50" onclick="scrollToTop()">
+            <svg class="w-6 h-6 text-[#ffffff90]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
+
+        <!-- 页脚 -->
+        <footer class="mt-12 py-6 text-center border-t border-[#ffffff0a]">
+            <div class="text-[#ffffff50] hover:text-[#ffffff70] transition-colors">
+                © 2025 星空影城 - 免费影视大全
+            </div>
+        </footer>
+    </div>
+
+    <!-- 添加页面滚动平滑效果 -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+	<!-- 在底部引入 scroll.js -->
+    <script src="/static/js/scroll.js"></script>
 </body>
-
 </html>
