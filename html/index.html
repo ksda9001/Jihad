@@ -224,7 +224,6 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
                         </button>
                         <!-- 搜索按钮：亚克力效果和柔和的光晕 -->
                         <button onclick="search()"
@@ -432,15 +431,26 @@
 
     <!-- 详情模态框 -->
     <div id="modal"
-        class="fixed inset-0 bg-black/95 hidden flex items-center justify-center transition-opacity duration-300 z-40">
-        <div class="bg-[#111] p-8 rounded-lg w-11/12 max-w-4xl border border-[#333] max-h-[90vh] flex flex-col">
-            <div class="flex justify-between items-center mb-6 flex-none">
-                <h2 id="modalTitle" class="text-2xl font-bold gradient-text break-words pr-4 max-w-[80%]"></h2>
-                <button onclick="closeModal()"
-                    class="text-gray-400 hover:text-white text-2xl transition-colors flex-shrink-0">&times;</button>
-            </div>
-            <div id="modalContent" class="overflow-auto flex-1 min-h-0">
-                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+        class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden flex items-center justify-center transition-all duration-300 z-40">
+        <div class="relative bg-[#11111199] backdrop-blur-xl p-8 rounded-2xl w-11/12 max-w-4xl border border-[#ffffff15] max-h-[90vh] flex flex-col shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all duration-300">
+            <!-- 装饰性光晕效果 -->
+            <div class="absolute inset-0 bg-gradient-to-br from-[#60a5fa10] to-transparent rounded-2xl"></div>
+            
+            <!-- 内容区域 -->
+            <div class="relative z-10">
+                <div class="flex justify-between items-center mb-6 flex-none">
+                    <h2 id="modalTitle" class="text-2xl font-bold gradient-text break-words pr-4 max-w-[80%]"></h2>
+                    <button onclick="closeModal()"
+                        class="group p-2 rounded-xl bg-[#ffffff08] hover:bg-[#ffffff15] active:bg-[#ffffff05] backdrop-blur-sm border border-[#ffffff15] hover:border-[#ffffff25] transition-all duration-300">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-gray-400 group-hover:text-white transition-colors">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="modalContent" class="overflow-auto flex-1 min-h-0">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 p-2">
+                        <!-- 内容将通过 JavaScript 动态生成 -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -502,10 +512,30 @@
     </div>
 
     <!-- 添加 loading 提示框 -->
-    <div id="loading" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50">
-        <div class="bg-[#111] p-8 rounded-lg border border-[#333] flex items-center space-x-4">
-            <div class="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-            <p class="text-white text-lg">加载中...</p>
+    <div id="loading" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="relative bg-[#11111199] backdrop-blur-xl p-6 rounded-2xl border border-[#ffffff15] flex items-center gap-6 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] group">
+            <!-- 装饰性光晕效果 -->
+            <div class="absolute inset-0 bg-gradient-to-br from-[#60a5fa10] to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <!-- 加载动画 -->
+            <div class="relative w-8 h-8">
+                <!-- 外层动画 -->
+                <div class="absolute inset-0 w-full h-full border-2 border-[#ffffff08] border-t-[#60a5fa] rounded-full animate-spin-slow opacity-90"></div>
+                <!-- 内层动画 -->
+                <div class="absolute inset-0 w-full h-full border-2 border-[#ffffff08] border-t-white rounded-full animate-spin opacity-90"></div>
+            </div>
+            
+            <!-- 文字 -->
+            <div class="relative">
+                <p class="text-[#f1f3fa] text-lg font-medium">
+                    加载中
+                    <span class="inline-flex gap-1">
+                        <span class="animate-bounce-delay-1">.</span>
+                        <span class="animate-bounce-delay-2">.</span>
+                        <span class="animate-bounce-delay-3">.</span>
+                    </span>
+                </p>
+            </div>
         </div>
     </div>
 
