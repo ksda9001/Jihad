@@ -19,7 +19,7 @@ let currentVideoUrl = ''; // 记录当前实际的视频URL
 const speeds = [0.25, 0.5, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4, 4.5, 5]; // 可选倍速
 
 // 封面图片列表
-const videoCoverImageBasePath = "image/player/";
+const videoCoverImageBasePath = "static/image/player/";
 const coverImages = [
     videoCoverImageBasePath + 'moon-2762111_1280.jpg',
     videoCoverImageBasePath + 'moon-3568835_1280.jpg',
