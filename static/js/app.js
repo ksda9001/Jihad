@@ -13,9 +13,6 @@ let episodesReversed = false;
 
 // 页面初始化
 document.addEventListener('DOMContentLoaded', function() {
-
-
-
     //直接插入完整 Matomo 跟踪脚本
     // const matomoScript = document.createElement('script');
     // matomoScript.innerHTML = `
@@ -32,19 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
     //     })();
     // `;
     // document.body.appendChild(matomoScript);
-
-
-    // 初始化API复选框
-    initAPICheckboxes();
-    
-    // 初始化自定义API列表
-    renderCustomAPIsList();
-    
-    // 初始化显示选中的API数量
-    updateSelectedApiCount();
-    
-    // 渲染搜索历史
-    renderSearchHistory();
     
     // 设置默认API选择（如果是第一次加载）
     if (!localStorage.getItem('hasInitializedDefaults')) {
@@ -82,6 +66,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // 设置事件监听器
     setupEventListeners();
     
+    // 初始化API复选框
+    initAPICheckboxes();
+    
+    // 初始化自定义API列表
+    renderCustomAPIsList();
+    
+    // 初始化显示选中的API数量
+    updateSelectedApiCount();
+    
+    // 渲染搜索历史
+    renderSearchHistory();
+
     // 初始检查成人API选中状态
     setTimeout(checkAdultAPIsSelected, 100);
 });
