@@ -790,3 +790,43 @@ function resetTagsToDefault() {
     
     showToast('已恢复默认标签', 'success');
 }
+
+// 更新切换按钮状态
+function updateToggleState(activeButton, inactiveButton) {
+    // 获取激活和未激活的样式
+    const activeStyle = activeButton.getAttribute('data-active');
+    const inactiveStyle = activeButton.getAttribute('data-inactive');
+    
+    // 更新按钮样式
+    activeButton.className = `px-4 py-1.5 text-sm rounded-lg transition-all duration-300 ${activeStyle}`;
+    inactiveButton.className = `px-4 py-1.5 text-sm rounded-lg transition-all duration-300 ${inactiveStyle}`;
+}
+
+// 修改现有的切换处理函数
+document.getElementById('douban-movie-toggle').addEventListener('click', function() {
+    if (currentType !== 'movie') {
+        currentType = 'movie';
+        updateToggleState(
+            document.getElementById('douban-movie-toggle'),
+            document.getElementById('douban-tv-toggle')
+        );
+        refreshDoubanContent();
+    }
+});
+
+document.getElementById('douban-tv-toggle').addEventListener('click', function() {
+    if (currentType !== 'tv') {
+        currentType = 'tv';
+        updateToggleState(
+            document.getElementById('douban-tv-toggle'),
+            document.getElementById('douban-movie-toggle')
+        );
+        refreshDoubanContent();
+    }
+});
+
+// 初始化时设置默认状态
+updateToggleState(
+    document.getElementById('douban-movie-toggle'),
+    document.getElementById('douban-tv-toggle')
+);

@@ -214,36 +214,59 @@
                 </div>
             </div>
             
-            <!-- 豆瓣热门推荐区域: 默认隐藏，现在位于搜索区域下方，调整宽度 -->
+            <!-- 豆瓣热门推荐区域: Fluent Design 2 风格 -->
             <div id="doubanArea" class="w-full my-8">
-                <div class="mx-auto max-w-screen-xl px-2">
-                    <!-- 改进标题和标签区域布局 -->
-                    <div class="mb-4">
-                        <!-- 标题和刷新按钮一行 -->
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center">
-                                <h2 class="text-xl font-bold text-white mr-4">豆瓣热门</h2>
-                                <!-- 添加电影/电视剧切换开关 -->
-                                <div class="flex items-center bg-[#222] rounded-full p-1">
-                                    <button id="douban-movie-toggle" class="px-3 py-1 text-sm rounded-full bg-pink-600 text-white">电影</button>
-                                    <button id="douban-tv-toggle" class="px-3 py-1 text-sm rounded-full text-gray-300 hover:text-white">电视剧</button>
+                <div class="mx-auto max-w-screen-xl px-4">
+                    <!-- 标题和控制区域 -->
+                    <div class="backdrop-blur-xl bg-[#ffffff08] border border-[#ffffff15] rounded-2xl p-4 mb-6 shadow-lg">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div class="flex items-center gap-4 flex-wrap">
+                                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                                    <svg class="w-6 h-6 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                                    </svg>
+                                    豆瓣热门
+                                </h2>
+                                <!-- 类型切换按钮组 -->
+                                <div class="inline-flex bg-[#ffffff0a] backdrop-blur-md rounded-xl p-1 border border-[#ffffff15]">
+                                    <button id="douban-movie-toggle" 
+                                            class="px-4 py-1.5 text-sm rounded-lg transition-all duration-300 active"
+                                            data-active="bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg"
+                                            data-inactive="text-gray-300 hover:bg-[#ffffff15]">电影</button>
+                                    <button id="douban-tv-toggle" 
+                                            class="px-4 py-1.5 text-sm rounded-lg transition-all duration-300"
+                                            data-active="bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg"
+                                            data-inactive="text-gray-300 hover:bg-[#ffffff15]">电视剧</button>
                                 </div>
                             </div>
-                            <button id="douban-refresh" class="text-sm px-3 py-1 bg-pink-600 hover:bg-pink-700 text-white rounded-lg flex items-center gap-1">
+                            <!-- 刷新按钮 -->
+                            <button id="douban-refresh" class="group px-4 py-2 bg-[#ffffff0a] hover:bg-[#ffffff15] backdrop-blur-md rounded-xl border border-[#ffffff15] text-white transition-all duration-300 flex items-center gap-2">
                                 <span>换一批</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                 </svg>
                             </button>
                         </div>
-                        <!-- 分类标签独立成行，添加滚动支持以适应移动设备 -->
-                        <div class="overflow-x-auto pb-2">
-                            <div id="douban-tags" class="flex space-x-2 min-w-max"></div>
+                        
+                        <!-- 分类标签滚动区域 -->
+                        <div class="mt-4 relative">
+                            <div class="overflow-x-auto no-scrollbar">
+                                <div id="douban-tags" class="flex space-x-2 py-2 min-w-max">
+                                    <!-- 标签将通过 JavaScript 动态生成 -->
+                                </div>
+                            </div>
+                            <!-- 渐变遮罩 -->
+                            <div class="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#1a1a1a] to-transparent pointer-events-none"></div>
+                            <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#1a1a1a] to-transparent pointer-events-none"></div>
                         </div>
                     </div>
                     
-                    <!-- 推荐内容 -->
-                    <div id="douban-results" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3"></div>
+                    <!-- 推荐内容网格：添加 Fluent Design 2 风格容器 -->
+                    <div class="backdrop-blur-xl bg-[#ffffff08] border border-[#ffffff15] rounded-2xl p-4 shadow-lg">
+                        <div id="douban-results" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                            <!-- 结果卡片将通过 JavaScript 动态生成 -->
+                        </div>
+                    </div>
                 </div>
             </div>
             
