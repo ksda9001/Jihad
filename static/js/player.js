@@ -420,7 +420,6 @@ function initPlayer(videoUrl, sourceCode) {
         preventClickToggle: false,       // 允许点击视频切换播放/暂停
         airplay: true,                   // 在Safari中启用AirPlay功能
         chromecast: true,                // 启用Chromecast投屏功能
-        playbackSpeed: [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2], // 支持的播放速度        
         contextmenu: [                   // 自定义右键菜单
             {
                 text: '关于 星空影城',
@@ -1677,12 +1676,6 @@ function addPlayerSpeedButton() {
     settingButton.parentNode.insertBefore(speedBtn, settingButton);
     console.log('成功添加倍速按钮');
 }
-
-
-
-
-
-
 /**
  * 播放器倍速变化事件
  */
