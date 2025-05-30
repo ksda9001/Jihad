@@ -265,58 +265,47 @@ function renderDoubanMovieTvSwitch() {
     const movieToggle = document.getElementById('douban-movie-toggle');
     const tvToggle = document.getElementById('douban-tv-toggle');
 
-    if (!movieToggle ||!tvToggle) return;
+    if (!movieToggle || !tvToggle) return;
+
+    // 初始化按钮状态
+    updateToggleState(movieToggle, tvToggle);
 
     movieToggle.addEventListener('click', function() {
         if (doubanMovieTvCurrentSwitch !== 'movie') {
-            // 更新按钮样式
-            movieToggle.classList.add('bg-pink-600', 'text-white');
-            movieToggle.classList.remove('text-gray-300');
-            
-            tvToggle.classList.remove('bg-pink-600', 'text-white');
-            tvToggle.classList.add('text-gray-300');
-            
             doubanMovieTvCurrentSwitch = 'movie';
+            updateToggleState(movieToggle, tvToggle);
             doubanCurrentTag = '热门';
+            doubanPageStart = 0;
 
             // 重新加载豆瓣内容
             renderDoubanTags(movieTags);
-
-            // 换一批按钮事件监听
-            setupDoubanRefreshBtn();
-            
-            // 初始加载热门内容
-            if (localStorage.getItem('doubanEnabled') === 'true') {
-                renderRecommend(doubanCurrentTag, doubanPageSize, doubanPageStart);
-            }
+            renderRecommend(doubanCurrentTag, doubanPageSize, doubanPageStart);
         }
     });
     
-    // 电视剧按钮点击事件
     tvToggle.addEventListener('click', function() {
         if (doubanMovieTvCurrentSwitch !== 'tv') {
-            // 更新按钮样式
-            tvToggle.classList.add('bg-pink-600', 'text-white');
-            tvToggle.classList.remove('text-gray-300');
-            
-            movieToggle.classList.remove('bg-pink-600', 'text-white');
-            movieToggle.classList.add('text-gray-300');
-            
             doubanMovieTvCurrentSwitch = 'tv';
+            updateToggleState(tvToggle, movieToggle);
             doubanCurrentTag = '热门';
+            doubanPageStart = 0;
 
             // 重新加载豆瓣内容
             renderDoubanTags(tvTags);
-
-            // 换一批按钮事件监听
-            setupDoubanRefreshBtn();
-            
-            // 初始加载热门内容
-            if (localStorage.getItem('doubanEnabled') === 'true') {
-                renderRecommend(doubanCurrentTag, doubanPageSize, doubanPageStart);
-            }
+            renderRecommend(doubanCurrentTag, doubanPageSize, doubanPageStart);
         }
     });
+}
+
+// 更新切换按钮状态
+function updateToggleState(activeButton, inactiveButton) {
+    if (!activeButton || !inactiveButton) return;
+    
+    const activeStyle = activeButton.getAttribute('data-active');
+    const inactiveStyle = inactiveButton.getAttribute('data-inactive');
+    
+    activeButton.className = `px-4 py-1.5 text-sm rounded-lg transition-all duration-300 ${activeStyle}`;
+    inactiveButton.className = `px-4 py-1.5 text-sm rounded-lg transition-all duration-300 ${inactiveStyle}`;
 }
 
 // 渲染豆瓣标签选择器
@@ -513,7 +502,7 @@ function renderDoubanCards(data, container) {
         fragment.appendChild(emptyEl);
     } else {
         // 循环创建每个影视卡片
-        data.subjects.forEach(item => {
+        data.subjects.forEach((item, index) => {
             const card = document.createElement("div");
             card.className = "bg-[#111] hover:bg-[#222] transition-all duration-300 rounded-lg overflow-hidden flex flex-col transform hover:scale-105 shadow-md hover:shadow-lg";
             
@@ -568,6 +557,74 @@ function renderDoubanCards(data, container) {
     container.innerHTML = "";
     container.appendChild(fragment);
 }
+
+// 添加卡片渲染动画
+function renderDoubanCard(item, index) {
+    const card = document.createElement('div');
+    card.className = 'fluent-hover ripple card-hover opacity-0';
+    card.style.animation = `fadeIn 0.3s ease-out ${index * 0.1}s forwards`;
+    
+    // 添加卡片内容
+    card.innerHTML = `
+        <div class="relative group backdrop-blur-md bg-[#ffffff08] rounded-xl border border-[#ffffff15] overflow-hidden transition-all duration-300">
+            <div class="aspect-[2/3] overflow-hidden">
+                <img src="${item.cover}" alt="${item.title}" 
+                     class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110">
+            </div>
+            <div class="p-2">
+                <h3 class="text-sm font-medium text-white truncate">${item.title}</h3>
+                <p class="text-xs text-gray-400 mt-1">${item.rate || '暂无评分'}</p>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+    `;
+    
+    return card;
+}
+
+// 添加标签切换动画
+function updateTags(tags) {
+    const tagsContainer = document.getElementById('douban-tags');
+    tagsContainer.innerHTML = '';
+    
+    tags.forEach((tag, index) => {
+        const button = document.createElement('button');
+        button.className = 'px-3 py-1.5 text-sm rounded-lg transition-all duration-300 opacity-0 smooth-transition';
+        button.style.animation = `fadeIn 0.2s ease-out ${index * 0.05}s forwards`;
+        button.textContent = tag;
+        
+        button.addEventListener('click', () => {
+            // 添加点击效果
+            button.classList.add('scale-95');
+            setTimeout(() => button.classList.remove('scale-95'), 200);
+            
+            // 处理标签选择逻辑
+            if (doubanCurrentTag !== tag) {
+                doubanCurrentTag = tag;
+                doubanPageStart = 0;
+                renderRecommend(doubanCurrentTag, doubanPageSize, doubanPageStart);
+                updateTags(tags);
+            }
+        });
+        
+        tagsContainer.appendChild(button);
+    });
+}
+
+// 为刷新按钮添加动画
+document.getElementById('douban-refresh').addEventListener('click', function() {
+    const results = document.getElementById('douban-results');
+    results.style.opacity = '0';
+    results.style.transform = 'scale(0.95)';
+    
+    setTimeout(() => {
+        refreshDoubanContent().then(() => {
+            results.style.transition = 'all 0.3s ease-out';
+            results.style.opacity = '1';
+            results.style.transform = 'scale(1)';
+        });
+    }, 300);
+});
 
 // 重置到首页
 function resetToHome() {
@@ -790,43 +847,3 @@ function resetTagsToDefault() {
     
     showToast('已恢复默认标签', 'success');
 }
-
-// 更新切换按钮状态
-function updateToggleState(activeButton, inactiveButton) {
-    // 获取激活和未激活的样式
-    const activeStyle = activeButton.getAttribute('data-active');
-    const inactiveStyle = activeButton.getAttribute('data-inactive');
-    
-    // 更新按钮样式
-    activeButton.className = `px-4 py-1.5 text-sm rounded-lg transition-all duration-300 ${activeStyle}`;
-    inactiveButton.className = `px-4 py-1.5 text-sm rounded-lg transition-all duration-300 ${inactiveStyle}`;
-}
-
-// 修改现有的切换处理函数
-document.getElementById('douban-movie-toggle').addEventListener('click', function() {
-    if (currentType !== 'movie') {
-        currentType = 'movie';
-        updateToggleState(
-            document.getElementById('douban-movie-toggle'),
-            document.getElementById('douban-tv-toggle')
-        );
-        refreshDoubanContent();
-    }
-});
-
-document.getElementById('douban-tv-toggle').addEventListener('click', function() {
-    if (currentType !== 'tv') {
-        currentType = 'tv';
-        updateToggleState(
-            document.getElementById('douban-tv-toggle'),
-            document.getElementById('douban-movie-toggle')
-        );
-        refreshDoubanContent();
-    }
-});
-
-// 初始化时设置默认状态
-updateToggleState(
-    document.getElementById('douban-movie-toggle'),
-    document.getElementById('douban-tv-toggle')
-);
