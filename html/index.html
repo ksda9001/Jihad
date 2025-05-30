@@ -267,11 +267,24 @@
                             <!-- 结果卡片将通过 JavaScript 动态生成 -->
                         </div>
                         <!-- 分页控制器 -->
-                        <div class="backdrop-blur-xl bg-[#ffffff08] border border-[#ffffff15] rounded-2xl p-4 shadow-lg transition-all duration-300 hover:shadow-2xl">
-                        <div id="douban-results" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                        <div id="douban-pagination-controls" class="flex justify-center items-center mt-8 space-x-2 py-4 px-6 backdrop-blur-xl bg-[#ffffff08] border border-[#ffffff15] rounded-2xl shadow-lg">
+                            <button class="pagination-btn prev-page disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 rounded-xl bg-[#ffffff0a] hover:bg-[#ffffff15] border border-[#ffffff15] text-white transition-all duration-300 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                </svg>
+                                <span>上一页</span>
+                            </button>
+                            <div class="flex items-center space-x-1">
+                                <span class="px-4 py-2 bg-[#ffffff0a] border border-[#ffffff15] rounded-xl text-white">
+                                    第 <span class="current-page font-bold text-blue-400">1</span> 页
+                                </span>
                             </div>
-                        <div id="douban-pagination-controls" class="flex justify-center items-center space-x-2 mt-6 py-2">
-                            </div>
+                            <button class="pagination-btn next-page disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 rounded-xl bg-[#ffffff0a] hover:bg-[#ffffff15] border border-[#ffffff15] text-white transition-all duration-300 flex items-center gap-2">
+                                <span>下一页</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 </div>
