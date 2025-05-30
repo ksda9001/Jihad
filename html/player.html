@@ -89,12 +89,25 @@
                 </div>
                 
                 <div class="flex flex-wrap gap-2">
-                    <select onchange="handleSelectChange(this)" class="px-3 py-1 bg-[#ffffff0a] hover:bg-[#ffffff15] border border-[#ffffff1a] rounded-xl text-[#ffffff90] transition-all duration-200">
-                        <option value="default">切换播放源</option>
-                        <option value="latest">黑木耳</option>
-                        <option value="popular">360</option>
-                        <option value="recommended">推荐</option>
-                    </select>
+                    <div class="relative group">
+                        <button id="sourceToggle" 
+                                class="px-3 py-1 bg-[#ffffff0a] hover:bg-[#ffffff15] border border-[#ffffff1a] rounded-xl 
+                                       text-[#ffffff90] transition-all duration-200 flex items-center gap-2 min-w-[120px]">
+                            <span id="currentSource">切换播放源</span>
+                            <svg class="w-4 h-4 transition-transform duration-200 group-[.active]:rotate-180" 
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div id="sourceDropdown" 
+                             class="absolute top-full mt-1 w-full min-w-[180px] py-1 hidden group-[.active]:block
+                                    bg-[#ffffff15] backdrop-blur-xl border border-[#ffffff1a] rounded-xl shadow-lg
+                                    max-h-[240px] overflow-y-auto custom-scrollbar z-50">
+                            <div class="source-list space-y-1 p-1">
+                                <!-- 播放源将通过 JS 动态添加 -->
+                            </div>
+                        </div>
+                    </div>
 
                     <button onclick="toggleEpisodeOrder()" class="px-3 py-1 bg-[#ffffff0a] hover:bg-[#ffffff15] border border-[#ffffff1a] rounded-xl transition-all duration-200 flex items-center space-x-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" id="orderIcon" viewBox="0 0 20 20" fill="currentColor">
