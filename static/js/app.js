@@ -992,7 +992,10 @@ async function showDetails(id, vod_name, sourceCode) {
             apiParams = '&source=' + sourceCode;
         }
         
-        const response = await fetch('/api/detail?id=' + encodeURIComponent(id) + apiParams);
+        // Add a timestamp to prevent caching
+        const timestamp = new Date().getTime();
+        const cacheBuster = `&_t=${timestamp}`;
+        const response = await fetch(`/api/detail?id=${encodeURIComponent(id)}${apiParams}${cacheBuster}`);
         
         const data = await response.json();
         
@@ -1009,41 +1012,68 @@ async function showDetails(id, vod_name, sourceCode) {
         currentVideoTitle = vod_name || '未知视频';
         
         if (data.episodes && data.episodes.length > 0) {
-            // 安全处理集数URL
-            const safeEpisodes = data.episodes.map(url => {
-                try {
-                    // 确保URL是有效的并且是http或https开头
-                    return url && (url.startsWith('http://') || url.startsWith('https://'))
-                        ? url.replace(/"/g, '&quot;')
-                        : '';
-                } catch (e) {
-                    return '';
+            // 构建详情信息HTML
+            let detailInfoHtml = '';
+            if (data.videoInfo) {
+                // Prepare description text, strip HTML and trim whitespace
+                const descriptionText = data.videoInfo.desc ? data.videoInfo.desc.replace(/<[^>]+>/g, '').trim() : '';
+
+                // Check if there's any actual grid content
+                const hasGridContent = data.videoInfo.type || data.videoInfo.year || data.videoInfo.area || data.videoInfo.director || data.videoInfo.actor || data.videoInfo.remarks;
+
+                if (hasGridContent || descriptionText) { // Only build if there's something to show
+                    detailInfoHtml = `
+                <div class="modal-detail-info">
+                    ${hasGridContent ? `
+                    <div class="detail-grid">
+                        ${data.videoInfo.type ? `<div class="detail-item"><span class="detail-label">类型:</span> <span class="detail-value">${data.videoInfo.type}</span></div>` : ''}
+                        ${data.videoInfo.year ? `<div class="detail-item"><span class="detail-label">年份:</span> <span class="detail-value">${data.videoInfo.year}</span></div>` : ''}
+                        ${data.videoInfo.area ? `<div class="detail-item"><span class="detail-label">地区:</span> <span class="detail-value">${data.videoInfo.area}</span></div>` : ''}
+                        ${data.videoInfo.director ? `<div class="detail-item"><span class="detail-label">导演:</span> <span class="detail-value">${data.videoInfo.director}</span></div>` : ''}
+                        ${data.videoInfo.actor ? `<div class="detail-item"><span class="detail-label">主演:</span> <span class="detail-value">${data.videoInfo.actor}</span></div>` : ''}
+                        ${data.videoInfo.remarks ? `<div class="detail-item"><span class="detail-label">备注:</span> <span class="detail-value">${data.videoInfo.remarks}</span></div>` : ''}
+                    </div>` : ''}
+                    ${descriptionText ? `
+                    <div class="detail-desc">
+                        <p class="detail-label">简介:</p>
+                        <p class="detail-desc-content">${descriptionText}</p>
+                    </div>` : ''}
+                </div>
+                `;
                 }
-            }).filter(url => url); // 过滤掉空URL
+            }
             
-            // 保存当前视频的所有集数
-            currentEpisodes = safeEpisodes;
-            episodesReversed = false; // 默认正序
+            currentEpisodes = data.episodes;
+            currentEpisodeIndex = 0;
+            
             modalContent.innerHTML = `
-                <div class="flex justify-end mb-2">
-                    <button onclick="toggleEpisodeOrder('${sourceCode}')" class="px-4 py-1 bg-[#222] hover:bg-[#333] border border-[#333] rounded-lg transition-colors flex items-center space-x-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z" clip-rule="evenodd" />
-                        </svg>
-                        <span>倒序排列</span>
-                    </button>
-                    <button title="批量复制播放链接" onclick="copyLinks()" class="ml-2 px-2 py-1 bg-[#222] hover:bg-[#333] border border-[#333] text-white rounded-lg transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                        </svg>
+                ${detailInfoHtml}
+                <div class="flex flex-wrap items-center justify-between mb-4 gap-2">
+                    <div class="flex items-center gap-2">
+                        <button onclick="toggleEpisodeOrder('${sourceCode}', '${id}')" 
+                                class="px-3 py-1.5 bg-[#333] hover:bg-[#444] border border-[#444] rounded text-sm transition-colors flex items-center gap-1">
+                            <svg class="w-4 h-4 transform ${episodesReversed ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                            </svg>
+                            <span>${episodesReversed ? '正序排列' : '倒序排列'}</span>
+                        </button>
+                        <span class="text-gray-400 text-sm">共 ${data.episodes.length} 集</span>
+                    </div>
+                    <button onclick="copyLinks()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition-colors">
+                        复制链接
                     </button>
                 </div>
                 <div id="episodesGrid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
-                    ${renderEpisodes(vod_name, sourceCode)}
+                    ${renderEpisodes(vod_name, sourceCode, id)}
                 </div>
             `;
         } else {
-            modalContent.innerHTML = '<p class="text-center text-gray-400 py-8">没有找到可播放的视频</p>';
+            modalContent.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="text-red-400 mb-2">❌ 未找到播放资源</div>
+                    <div class="text-gray-500 text-sm">该视频可能暂时无法播放，请尝试其他视频</div>
+                </div>
+            `;
         }
         
         modal.classList.remove('hidden');
@@ -1056,7 +1086,7 @@ async function showDetails(id, vod_name, sourceCode) {
 }
 
 // 更新播放视频函数，修改为使用/watch路径而不是直接打开player.html
-function playVideo(url, vod_name, sourceCode, episodeIndex = 0) {
+function playVideo(url, vod_name, sourceCode, episodeIndex = 0, vodId = '') {
     // 密码保护校验
     if (window.isPasswordProtected && window.isPasswordVerified) {
         if (window.isPasswordProtected() && !window.isPasswordVerified()) {
@@ -1064,30 +1094,17 @@ function playVideo(url, vod_name, sourceCode, episodeIndex = 0) {
             return;
         }
     }
-    if (!url) {
-        showToast('视频地址无效', 'error');
-        return;
-    }
     
     // 获取当前路径作为返回页面
     let currentPath = window.location.href;
     
-    // 如果有ID参数，也传递过去
-    let videoId = '';
-    try {
-        // 尝试从URL中提取id参数（如果存在）
-        const urlObj = new URL(url);
-        videoId = urlObj.searchParams.get('id') || '';
-    } catch (e) {
-        // 忽略错误
-        console.log('解析视频URL获取ID失败:', e);
-    }
-    
     // 构建播放页面URL，使用watch.html作为中间跳转页
-    let watchUrl = `watch.html?id=${videoId}&source=${sourceCode || ''}&url=${encodeURIComponent(url)}&index=${episodeIndex}&title=${encodeURIComponent(vod_name || '')}`;
+    let watchUrl = `watch.html?id=${vodId || ''}&source=${sourceCode || ''}&url=${encodeURIComponent(url)}&index=${episodeIndex}&title=${encodeURIComponent(vod_name || '')}`;
     
     // 添加返回URL参数
-    watchUrl += `&back=${encodeURIComponent(currentPath)}`;
+    if (currentPath.includes('index.html') || currentPath.endsWith('/')) {
+        watchUrl += `&back=${encodeURIComponent(currentPath)}`;
+    }
     
     // 保存当前状态到localStorage
     try {
@@ -1102,8 +1119,8 @@ function playVideo(url, vod_name, sourceCode, episodeIndex = 0) {
         console.error('保存播放状态失败:', e);
     }
     
-    // 在新窗口/标签页中打开播放页面
-    window.open(watchUrl, '_blank');
+    // 在当前标签页中打开播放页面
+    window.location.href = watchUrl;
 }
 
 // 弹出播放器页面
@@ -1122,10 +1139,12 @@ function showVideoPlayer(url) {
     videoPlayerFrame.className = 'fixed w-full h-screen z-40';
     videoPlayerFrame.src = url;
     document.body.appendChild(videoPlayerFrame);
+    // 将焦点移入iframe
+    videoPlayerFrame.focus();
 }
 
 // 关闭播放器页面
-function closeVideoPlayer() {
+function closeVideoPlayer(home = false) {
     videoPlayerFrame = document.getElementById('VideoPlayerFrame');
     if (videoPlayerFrame) {
         videoPlayerFrame.remove();
@@ -1140,6 +1159,10 @@ function closeVideoPlayer() {
         if (localStorage.getItem('doubanEnabled') === 'true') {
             document.getElementById('doubanArea').classList.remove('hidden');
         }
+    }
+    if (home) {
+        // 刷新主页
+        window.location.href = '/'
     }
 }
 
@@ -1168,15 +1191,15 @@ function handlePlayerError() {
 }
 
 // 辅助函数用于渲染剧集按钮（使用当前的排序状态）
-function renderEpisodes(vodName, sourceCode) {
+function renderEpisodes(vodName, sourceCode, vodId) {
     const episodes = episodesReversed ? [...currentEpisodes].reverse() : currentEpisodes;
     return episodes.map((episode, index) => {
         // 根据倒序状态计算真实的剧集索引
         const realIndex = episodesReversed ? currentEpisodes.length - 1 - index : index;
         return `
-            <button id="episode-${realIndex}" onclick="playVideo('${episode}','${vodName.replace(/"/g, '&quot;')}', '${sourceCode}', ${realIndex})" 
+            <button id="episode-${realIndex}" onclick="playVideo('${episode}','${vodName.replace(/"/g, '&quot;')}', '${sourceCode}', ${realIndex}, '${vodId}')" 
                     class="px-4 py-2 bg-[#222] hover:bg-[#333] border border-[#333] rounded-lg transition-colors text-center episode-btn">
-                第${realIndex + 1}集
+                ${realIndex + 1}
             </button>
         `;
     }).join('');
