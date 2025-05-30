@@ -51,9 +51,16 @@
             <!-- 历史记录将在这里动态显示 -->
             <div class="text-center text-gray-400 py-8 bg-[#ffffff08] rounded-xl backdrop-blur-md border border-[#ffffff15]">暂无观看记录</div>
         </div>
-        <div class="mt-4 sticky bottom-0 pb-2 pt-2 bg-gradient-to-t from-[#11111199] via-[#11111199] to-transparent backdrop-blur-xl">
-            <button onclick="clearViewingHistory()" class="w-full px-4 py-2.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white rounded-xl text-sm transition-all duration-300 shadow-lg hover:shadow-xl border border-[#ffffff15]">
-                清空历史记录
+        <div class="mt-4 sticky bottom-0 pb-2 pt-2">
+            <button onclick="clearViewingHistory()" 
+                    class="group relative w-full px-4 py-2.5 bg-[#ffffff08] hover:bg-[#ffffff0f] active:bg-[#ffffff05] backdrop-blur-md text-white rounded-xl text-sm transition-all duration-300 shadow-lg hover:shadow-xl border border-[#ffffff15] hover:border-[#ffffff25] overflow-hidden">
+                <span class="relative z-10 flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    清空历史记录
+                </span>
+                <div class="absolute inset-0 bg-gradient-to-r from-[#60a5fa20] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
         </div>
     </div>
