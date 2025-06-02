@@ -39,7 +39,7 @@ app.use(cors({
 
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'DENY');
+  // res.setHeader('X-Frame-Options', 'DENY'); 防止历史记录功能失效
   res.setHeader('X-XSS-Protection', '1; mode=block');
   next();
 });
@@ -201,7 +201,8 @@ app.get('/proxy/:encodedUrl', async (req, res) => {
     const headers = { ...response.headers };
     const sensitiveHeaders = (
       process.env.FILTERED_HEADERS || 
-      'content-security-policy,cookie,set-cookie,x-frame-options,access-control-allow-origin'
+      // 'content-security-policy,cookie,set-cookie,x-frame-options,access-control-allow-origin' 防止历史记录功能失效
+      'content-security-policy,cookie,set-cookie,access-control-allow-origin'
     ).split(',');
     
     sensitiveHeaders.forEach(header => delete headers[header]);
