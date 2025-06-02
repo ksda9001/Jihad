@@ -2,60 +2,174 @@
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: rgba(0, 0, 0, 0.75); /* 降低背景遮罩的不透明度 */
+    backdrop-filter: blur(24px);
     display: none;
     align-items: center;
     justify-content: center;
     z-index: 40;
-    transition: opacity 0.3s ease;
+    transition: all 0.4s var(--animation-cubic);
 }
 
 .modal-content {
-    background-color: #111;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    border: 1px solid #333;
+    position: relative;
+    background: linear-gradient(165deg, 
+        rgba(255, 255, 255, 0.03) 0%,   /* 降低渐变起始透明度 */
+        rgba(255, 255, 255, 0.01) 40%,  /* 降低渐变中间透明度 */
+        rgba(255, 255, 255, 0.005) 100%); /* 降低渐变结束透明度 */
+    backdrop-filter: blur(28px) saturate(180%); /* 增加模糊程度和饱和度 */
+    padding: 1.75rem;
+    border-radius: 1.25rem;
     width: 91.666667%;
     max-width: 56rem;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),  /* 减少阴影不透明度 */
+        0 0 0 1px rgba(255, 255, 255, 0.03); /* 减少边框不透明度 */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, 
+        rgba(96, 165, 250, 0.08), /* 减小光晕强度 */
+        transparent 70%);
+    border-radius: 1.25rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.modal-content:hover::before {
+    opacity: 1;
 }
 
 .modal-header {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
-    flex: none;
+    padding-bottom: 1rem;
 }
 
+.modal-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -1.75rem;
+    right: -1.75rem;
+    height: 1px;
+    background: linear-gradient(to right,
+        transparent,
+        rgba(255, 255, 255, 0.08) 50%, /* 降低分割线透明度 */
+        transparent);
+}
+
+/* 标题动画效果 */
 .modal-title {
     font-size: 1.5rem;
-    font-weight: 700;
-    background: linear-gradient(to right, #00ccff, #ff3c78);
+    font-weight: 600;
+    background: linear-gradient(to right, #60a5fa, #db2777);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    word-break: break-word;
-    padding-right: 1rem;
-    max-width: 80%;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    to {
+        background-position: 200% center;
+    }
 }
 
 .modal-close {
-    color: #9ca3af;
-    font-size: 1.5rem;
-    transition: color 0.2s;
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem;
+    border-radius: 0.875rem;
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.modal-close::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+        rgba(255, 255, 255, 0.1),
+        transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .modal-close:hover {
-    color: white;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
 }
 
-.modal-body {
-    overflow: auto;
-    flex: 1;
-    min-height: 0;
+.modal-close:hover::before {
+    opacity: 1;
+}
+
+.modal-close:active {
+    transform: scale(0.95);
+}
+
+/* 改进滚动条样式 */
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* 更新动画效果 */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        backdrop-filter: blur(20px);
+    }
+}
+
+@keyframes modalFadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        backdrop-filter: blur(20px);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+        backdrop-filter: blur(0px);
+    }
 }
 
 /* 密码验证模态框 */
@@ -202,13 +316,4 @@
 @keyframes fadeOut {
     from { opacity: 1; }
     to { opacity: 0; }
-}
-
-.modal-overlay.show {
-    animation: fadeIn 0.3s forwards;
-    display: flex;
-}
-
-.modal-overlay.hide {
-    animation: fadeOut 0.3s forwards;
 }

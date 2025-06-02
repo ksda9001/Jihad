@@ -94,6 +94,71 @@
     --card-gradient-end: #1c2939;   /* 卡片结束色 */
     --card-accent: rgba(0, 204, 255, 0.12); /* 霓虹蓝卡片强调色 */
     --card-hover-border: rgba(0, 204, 255, 0.5); /* 悬停边框颜色 */
+
+    /* Fluent Design 2 动画变量 */
+    --animation-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-duration: 0.3s;
+    
+    /* Mica 效果变量 */
+    --mica-background: linear-gradient(165deg, 
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.02) 40%,
+        rgba(255, 255, 255, 0.01) 100%);
+    --mica-blur: blur(24px);
+    --mica-border: 1px solid rgba(255, 255, 255, 0.05);
+    --mica-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Mica 效果基础类 */
+.mica-effect {
+    background: var(--mica-background);
+    backdrop-filter: var(--mica-blur);
+    box-shadow: var(--mica-shadow);
+    border: var(--mica-border);
+}
+
+/* 更新模态框相关样式 */
+#modal > div {
+    background: var(--mica-background);
+    backdrop-filter: var(--mica-blur);
+    box-shadow: var(--mica-shadow);
+    border: var(--mica-border);
+    transition: all var(--animation-duration) var(--animation-cubic);
+}
+
+#modal > div:hover {
+    box-shadow: 
+        0 12px 48px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* 更新按钮动画 */
+button, 
+.card-hover {
+    transition: all var(--animation-duration) var(--animation-cubic);
+}
+
+/* 更新滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    transition: background var(--animation-duration) var(--animation-cubic);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .page-bg {
@@ -324,10 +389,10 @@ body {
 }
 
 #modal > div {
-    background: linear-gradient(135deg, var(--card-gradient-start), var(--card-gradient-end));
-    border: 1px solid var(--primary-color);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 204, 255, 0.1);
-    border-radius: 8px;
+    background: var(--mica-background);
+    backdrop-filter: var(--mica-blur);
+    box-shadow: var(--mica-shadow);
+    border: var(--mica-border);
 }
 
 #episodesGrid button {
