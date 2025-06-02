@@ -1023,7 +1023,7 @@ async function showDetails(id, vod_name, sourceCode) {
 
                 if (hasGridContent || descriptionText) { // Only build if there's something to show
                     detailInfoHtml = `
-                <div class="modal-detail-info">
+                <div class="mb-6 bg-[#ffffff08] backdrop-blur-md rounded-xl p-4 border border-[#ffffff15] hover:border-[#ffffff25] transition-all duration-300 group">
                     ${hasGridContent ? `
                     <div class="detail-grid">
                         ${data.videoInfo.type ? `<div class="detail-item"><span class="detail-label">类型:</span> <span class="detail-value">${data.videoInfo.type}</span></div>` : ''}
@@ -1034,11 +1034,12 @@ async function showDetails(id, vod_name, sourceCode) {
                         ${data.videoInfo.remarks ? `<div class="detail-item"><span class="detail-label">备注:</span> <span class="detail-value">${data.videoInfo.remarks}</span></div>` : ''}
                     </div>` : ''}
                     ${descriptionText ? `
+                    </h3>
                     <div class="detail-desc">
                         <p class="detail-label">简介:</p>
                         <p class="detail-desc-content">${descriptionText}</p>
                     </div>` : ''}
-                </div>
+              </div>  
                 `;
                 }
             }
@@ -1048,23 +1049,45 @@ async function showDetails(id, vod_name, sourceCode) {
             
             modalContent.innerHTML = `
                 ${detailInfoHtml}
-                <div class="flex flex-wrap items-center justify-between mb-4 gap-2">
-                    <div class="flex items-center gap-2">
-                        <button onclick="toggleEpisodeOrder('${sourceCode}', '${id}')" 
-                                class="px-3 py-1.5 bg-[#333] hover:bg-[#444] border border-[#444] rounded text-sm transition-colors flex items-center gap-1">
-                            <svg class="w-4 h-4 transform ${episodesReversed ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                <div class="backdrop-blur bg-gray-900/60 rounded-2xl p-6 shadow-2xl border border-gray-800/50 hover:border-gray-700/50 transition-all duration-300 overflow-hidden">
+                    <!-- 头部操作栏 -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                        <!-- 左侧按钮组 -->
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleEpisodeOrder('${sourceCode}', '${id}')"
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-gray-800/80 hover:bg-gray-700/80 active:bg-gray-600/80 rounded-lg border border-gray-700/50 transition-all duration-200 group">
+                                <svg class="w-4 h-4 transition-transform duration-200 ${episodesReversed ? 'rotate-180' : ''} group-hover:scale-110" 
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                                </svg>
+                                <span class="text-sm font-medium">
+                                    ${episodesReversed ? '正序排列' : '倒序排列'}
+                                </span>
+                            </button>
+                            
+                            <div class="flex items-center gap-2">
+                                <span class="text-gray-400 text-sm font-medium">共 ${data.episodes.length} 集</span>
+                            </div>
+                        </div>
+
+                        <!-- 右侧复制按钮 -->
+                        <button onclick="copyLinks()" 
+                                class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/90 hover:bg-blue-500/90 active:bg-blue-700/90 rounded-lg transition-all duration-200 group">
+                            <svg class="w-4 h-4 transition-transform group-hover:scale-110" 
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
                             </svg>
-                            <span>${episodesReversed ? '正序排列' : '倒序排列'}</span>
+                            <span class="text-sm font-medium">复制链接</span>
                         </button>
-                        <span class="text-gray-400 text-sm">共 ${data.episodes.length} 集</span>
                     </div>
-                    <button onclick="copyLinks()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition-colors">
-                        复制链接
-                    </button>
-                </div>
-                <div id="episodesGrid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
-                    ${renderEpisodes(vod_name, sourceCode, id)}
+
+                    <!-- 剧集网格 -->
+                    <div id="episodesGrid" 
+                        class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 mt-2">
+                        ${renderEpisodes(vod_name, sourceCode, id)}
+                    </div>
                 </div>
             `;
         } else {
