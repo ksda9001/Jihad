@@ -432,14 +432,15 @@
     <!-- 详情模态框 -->
     <div id="modal"
         class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden flex items-center justify-center transition-all duration-300 z-40">
-        <div class="relative bg-[#11111199] backdrop-blur-xl p-8 rounded-2xl w-11/12 max-w-4xl border border-[#ffffff15] max-h-[90vh] flex flex-col shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all duration-300">
+        <div class="relative bg-[#11111199] backdrop-blur-xl p-6 rounded-2xl w-11/12 max-w-4xl border border-[#ffffff15] max-h-[90vh] overflow-y-auto shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all duration-300">
             <!-- 装饰性光晕效果 -->
-            <div class="absolute inset-0 bg-gradient-to-br from-[#60a5fa10] to-transparent rounded-2xl"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-[#60a5fa10] to-transparent rounded-2xl pointer-events-none"></div>
             
             <!-- 内容区域 -->
             <div class="relative z-10">
-                <div class="flex justify-between items-center mb-6 flex-none">
-                    <h2 id="modalTitle" class="text-2xl font-bold gradient-text break-words pr-4 max-w-[80%]"></h2>
+                <!-- 标题栏 -->
+                <div class="flex justify-between items-center mb-6">
+                    <h2 id="modalTitle" class="text-2xl font-bold gradient-text break-words pr-4"></h2>
                     <button onclick="closeModal()"
                         class="group p-2 rounded-xl bg-[#ffffff08] hover:bg-[#ffffff15] active:bg-[#ffffff05] backdrop-blur-sm border border-[#ffffff15] hover:border-[#ffffff25] transition-all duration-300">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-gray-400 group-hover:text-white transition-colors">
@@ -447,9 +448,31 @@
                         </svg>
                     </button>
                 </div>
-                <div id="modalContent" class="overflow-auto flex-1 min-h-0">
-                    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 p-2">
-                        <!-- 内容将通过 JavaScript 动态生成 -->
+
+                <!-- 剧情介绍卡片 -->
+                <div class="mb-6 bg-[#ffffff08] backdrop-blur-md rounded-xl p-4 border border-[#ffffff15] hover:border-[#ffffff25] transition-all duration-300 group">
+                    <h3 class="text-lg font-medium text-gray-200 mb-3 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        剧情介绍
+                    </h3>
+                    <div id="modalDescription" class="text-gray-300 leading-relaxed"></div>
+                </div>
+
+                <!-- 播放源列表 -->
+                <div id="modalContent">
+                    <div class="bg-[#ffffff08] backdrop-blur-md rounded-xl p-4 border border-[#ffffff15] hover:border-[#ffffff25] transition-all duration-300">
+                        <h3 class="text-lg font-medium text-gray-200 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            播放源
+                        </h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+                            <!-- 播放源按钮将通过 JavaScript 动态生成 -->
+                        </div>
                     </div>
                 </div>
             </div>
