@@ -421,18 +421,18 @@ function initPlayer(videoUrl, sourceCode) {
         airplay: true,                   // 在Safari中启用AirPlay功能
         chromecast: true,                // 启用Chromecast投屏功能
         playbackSpeed: [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2],
-        contextmenu: [                   // 自定义右键菜单
-            {
-                text: '关于 星空影城',
-                link: 'https://github.com/ksda9001/Jihad'
-            },
-            {
-                text: '问题反馈',
-                click: (player) => {
-                    window.open('https://github.com/ksda9001/Jihad/issues', '_blank');
-                }
-            }
-        ],
+        // contextmenu: [                   // 自定义右键菜单
+        //     {
+        //         text: '关于 星空影城',
+        //         link: 'https://github.com/ksda9001/Jihad'
+        //     },
+        //     {
+        //         text: '问题反馈',
+        //         click: (player) => {
+        //             window.open('https://github.com/ksda9001/Jihad/issues', '_blank');
+        //         }
+        //     }
+        // ],
         video: {
             url: videoUrl,
             type: 'hls',
