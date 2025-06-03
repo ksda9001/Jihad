@@ -75,7 +75,7 @@ const API_SITES = {
         detail: 'https://jszyapi.com', 
     },
     dbzy: {
-        api: 'https://dbzy.com/api.php/provide/vod',
+        api: 'https://caiji.dbzy5.com/api.php/provide/vod/from/dbm3u8/at/josn/',
         name: '豆瓣资源',
     },
     mozhua: {
