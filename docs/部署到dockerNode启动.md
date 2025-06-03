@@ -12,7 +12,7 @@ RUN npm install -g nodemon
 COPY package*.json ./
 RUN npm install
 # 容器启动命令：使用 nodemon 热更新
-CMD ["nodemon", "app.js"]
+CMD ["nodemon", "server.mjs"]
 ```
 4. 执行Dockerfile
 ```bash
