@@ -12,7 +12,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN bun install
 # 容器启动命令：使用 bun 的内置热更新
-CMD ["bun", "--watch", "server.mjs"]
+CMD ["bun", "server.mjs"]
 ```
 4. 执行Dockerfile
 ```bash
@@ -21,5 +21,5 @@ docker build -t jihad .
 ```
 5. 运行容器
 ```bash
-docker run -it -d --name jihad-dev -v /home/Jihad/Jihad-dev:/app -p 8899:8899 jihad
+docker run -it -d --name jihad -v /home/Jihad/Jihad:/app -p 8899:8899 jihad
 ```
