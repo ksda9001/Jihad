@@ -11,15 +11,14 @@ RUN npm install -g nodemon
 # 安装依赖（注意：实际使用时依赖由挂载进来的 volume 提供）
 COPY package*.json ./
 RUN npm install
-# 容器启动命令：使用 nodemon 热更新
-CMD ["nodemon", "app.js"]
+CMD ["node", "server.mjs"]
 ```
 4. 执行Dockerfile
 ```bash
 # docker build -t 镜像名 .
-docker build -t jihad-dev .
+docker build -t jihad .
 ```
 5. 运行容器
 ```bash
-docker run -it -d --name jihad-dev -v $(dirname $(pwd)):/app -p 8890:8899 jihad-dev
+docker run -it -d --name jihad -v /home/Jihad/Jihad:/app -p 8899:8899 jihad
 ```
