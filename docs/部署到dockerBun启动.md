@@ -1,4 +1,4 @@
-## 已使用Bun替代Node.js
+## 已使用Bun替代Node.js(废弃，重返Node.js, Bun网络性能过差)
 1. docker pull oven/bun
 2. docker run --rm --init --ulimit memlock=-1:-1 oven/bun
 3. cd进入项目根目录

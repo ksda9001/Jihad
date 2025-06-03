@@ -21,5 +21,5 @@ docker build -t jihad-dev .
 ```
 5. 运行容器
 ```bash
-docker run -it -d --name jihad-dev -v $(dirname $(pwd)):/app -p 8890:8899 jihad-dev
+docker run -it -d --name jihad-dev -v /home/Jihad/Jihad-dev:/app -p 8890:8899 jihad-dev
 ```
