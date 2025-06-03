@@ -8,4 +8,4 @@ COPY package*.json ./
 RUN bun install
 
 # 容器启动命令：使用 bun 的内置热更新
-CMD ["bun", "--watch", "server.mjs"]
+CMD ["bun", "server.mjs"]

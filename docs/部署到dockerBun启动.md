@@ -17,9 +17,9 @@ CMD ["bun", "--watch", "server.mjs"]
 4. 执行Dockerfile
 ```bash
 # docker build -t 镜像名 .
-docker build -t jihad-dev .
+docker build -t jihad .
 ```
 5. 运行容器
 ```bash
-docker run -it -d --name jihad-dev -v /home/Jihad/Jihad-dev:/app -p 8890:8899 jihad-dev
+docker run -it -d --name jihad-dev -v /home/Jihad/Jihad-dev:/app -p 8899:8899 jihad
 ```
