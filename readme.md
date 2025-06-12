@@ -1,7 +1,7 @@
 # 星空影城 - 免费在线视频搜索与观看平台
 
 <div align="center">
-  <img src="./image/mainLogo.png" alt="星空影城 Logo" width="120">
+  <img src="./static/image/mainLogo.png" alt="星空影城 Logo" width="120">
   <br>
   <p><em> A Norns Interactive Project. </em></p>
   <p><strong>免费影视大全</strong></p>
