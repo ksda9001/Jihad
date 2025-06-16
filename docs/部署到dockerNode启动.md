@@ -17,7 +17,7 @@ CMD ["nodemon", "server.mjs"]
 4. 执行Dockerfile
 ```bash
 # docker build -t 镜像名 .
-docker build -t jihad-dev .
+docker build -t jihad .
 ```
 5. 运行容器
 ```bash
