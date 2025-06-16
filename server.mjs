@@ -242,6 +242,12 @@ app.get('/proxy/:encodedUrl', async (req, res) => {
   }
 });
 
+// 处理APK下载请求
+app.get('/download/app', (req, res) => {
+  // 直接重定向到下载地址
+  res.redirect('https://norns.dpdns.org/d/Norns%20Interactive/%E6%98%9F%E7%A9%BA%E5%BD%B1%E5%9F%8Ewebview/app-release.apk?sign=Lqw3K1qTmKHCAeAYvbHf2wUdYbF5rXaRChqCd4lyK8c=:0');
+});
+
 app.use('/static',express.static(path.join(__dirname,'static'), {
   maxAge: config.cacheMaxAge
 }));
