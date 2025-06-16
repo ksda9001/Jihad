@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星空影城 - 移动客户端下载</title>
+    <meta name="description" content="下载星空影城安卓客户端，享受更流畅的观影体验。精心打造的移动应用让您随时随地观看您喜爱的影视作品。">
+    <meta name="keywords" content="星空影城,安卓客户端,移动应用,视频播放器,电影,电视剧">
+    <meta name="author" content="Norns Interactive">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/image/title.ico">
+    <link rel="apple-touch-icon" href="/static/image/mainLogo.png">
+    <link rel="manifest" href="/static/manifest.json">
+
+    <script src="/static/libs/js/tailwindcss.min.js"></script>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body class="page-bg text-white min-h-screen flex flex-col">
+    <!-- 导航按钮 -->
+    <!-- <div class="fixed top-4 left-4 z-10">
+        <a href="/" class="bg-[#11111199] backdrop-blur-xl hover:bg-[#ffffff15] border border-[#ffffff15] hover:border-[#ffffff25] rounded-lg px-3 py-1.5 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            <span>返回首页</span>
+        </a>
+    </div> -->
+
+    <!-- 主要内容区 -->
+    <main class="flex-1 container mx-auto px-4 py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- 标题区域 -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+                    星空影城移动客户端
+                </h1>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                    随时随地，畅享精彩影视世界
+                </p>
+            </div>
+
+            <!-- 特性展示 -->
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-[#ffffff0a] backdrop-blur-xl rounded-2xl p-6 border border-[#ffffff15] hover:border-[#ffffff25] transition-all duration-300">
+                    <div class="text-blue-400 mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">极速体验</h3>
+                    <p class="text-gray-400">优化的播放引擎，更快的加载速度，让您的观影体验更加流畅</p>
+                </div>
+                <div class="bg-[#ffffff0a] backdrop-blur-xl rounded-2xl p-6 border border-[#ffffff15] hover:border-[#ffffff25] transition-all duration-300">
+                    <div class="text-purple-400 mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">隐私保护</h3>
+                    <p class="text-gray-400">安全的播放环境，保护您的个人信息和观影隐私</p>
+                </div>
+                <!-- <div class="bg-[#ffffff0a] backdrop-blur-xl rounded-2xl p-6 border border-[#ffffff15] hover:border-[#ffffff25] transition-all duration-300">
+                    <div class="text-indigo-400 mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">离线观看</h3>
+                    <p class="text-gray-400">支持视频缓存，让您在无网络环境下也能享受精彩内容</p>
+                </div> -->
+            </div>
+
+            <!-- 下载区域 -->
+            <div class="text-center">
+                <div class="bg-[#ffffff0a] backdrop-blur-xl rounded-2xl p-8 border border-[#ffffff15] hover:border-[#ffffff25] transition-all duration-300 inline-block">
+                    <h2 class="text-2xl font-bold mb-6">立即下载体验</h2>
+                    <div class="flex flex-col items-center gap-4">
+                        <a href="#" class="download-btn bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-lg flex items-center gap-2 transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                            </svg>
+                            <span>下载安卓客户端</span>
+                        </a>
+                        <p class="text-sm text-gray-400">当前版本：1.0.0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 使用说明 -->
+            <div class="mt-16">
+                <h2 class="text-2xl font-bold mb-6 text-center">使用说明</h2>
+                <div class="bg-[#ffffff0a] backdrop-blur-xl rounded-2xl p-6 border border-[#ffffff15]">
+                    <ol class="space-y-4 text-gray-300">
+                        <li class="flex items-start gap-3">
+                            <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                            <p>下载并安装 APK 文件到您的安卓设备</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+                            <p>首次安装需要授予应用必要的权限</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+                            <p>打开应用即可开始享受高清影视内容</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="py-8 text-center text-gray-400">
+        <p>&copy; 2025 星空影城. 保留所有权利.</p>
+    </footer>
+</body>
+
+</html>

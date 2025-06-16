@@ -94,8 +94,16 @@ async function renderPage(filePath, password) {
 //使用正则匹配所有html页面
 app.get(/^(\/$|\/.*\.html|\/s=.*)$/, async (req, res) => {
   try {
+    const userAgent = req.headers['user-agent'];
     //html的基本路径
     const htmlBasePath = path.join(__dirname, 'html');
+    
+    // 检查是否允许访问
+    if (!isAllowedUserAgent(userAgent) && !req.path.includes('download.html')) {
+      // 如果不是允许的UA且不是访问download.html，则重定向到download.html
+      return res.redirect('/download.html');
+    }
+
     let filePath;
 
     
@@ -155,6 +163,19 @@ function isValidUrl(urlString) {
   } catch {
     return false;
   }
+}
+
+// 检查User-Agent是否允许访问
+function isAllowedUserAgent(userAgent) {
+  if (!userAgent) return false;
+  userAgent = userAgent.toLowerCase();
+  
+  // 检查是否为iPhone或iPad
+  const isIOS = userAgent.includes('iphone') || userAgent.includes('ipad');
+  const isJihadAndroid = userAgent.includes('jihadandroid');
+  
+  // 只允许iOS设备和JihadAndroid
+   return isIOS || isJihadAndroid;
 }
 
 // 代理路由
