@@ -12,5 +12,4 @@ COPY package*.json ./
 RUN npm install
 
 # 容器启动命令：使用 nodemon 热更新
-CMD ["node", "server.mjs"]
-
+CMD ["nodemon", "server.mjs"]
