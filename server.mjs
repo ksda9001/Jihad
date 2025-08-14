@@ -20,7 +20,8 @@ const config = {
   maxRetries: parseInt(process.env.MAX_RETRIES || '2'),
   cacheMaxAge: process.env.CACHE_MAX_AGE || '1d',
   userAgent: process.env.USER_AGENT || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  debug: process.env.DEBUG === 'true'
+  debug: process.env.DEBUG === 'true',
+  prefix: process.env.PREFIX || '',
 };
 
 const log = (...args) => {
@@ -58,11 +59,77 @@ async function renderPage(filePath, password) {
     const sha256 = await sha256Hash(password);
     content = content.replace('{{PASSWORD}}', sha256);
   }
+
+  // 给所有静态资源路径加 prefix（匹配 href="/static/... 或 src="/static/...）
+  const staticRegex = /(["'])\/static\//g;
+  content = content.replace(staticRegex, `$1${config.prefix}/static/`);
   
+
+  // 如果不是下载页面，就添加悬浮窗公告
+  if (!filePath.endsWith('download.html')) {
+    const noticeHTML = `
+      <style>
+      #floatNotice {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(255, 215, 0, 0.95);
+        color: #000;
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        font-size: 14px;
+        z-index: 9999;
+      }
+      #floatNotice a {
+        color: #d00;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+      #floatNotice .closeBtn {
+        position: absolute;
+        top: 2px;
+        right: 6px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      </style>
+      <div id="floatNotice">
+        <span class="closeBtn" onclick="document.getElementById('floatNotice').remove()">×</span>
+        📢 最新版本app已发布！<a href="${config.prefix}/download.html">点击这里下载</a>
+      </div>
+    `;
+    // 在 </body> 前插入公告
+    content = content.replace('</body>', `${noticeHTML}\n</body>`);
+  }
+
+  // 如果 HTML 里有其它页面的绝对路径，比如 href="/player.html"
+    // HTML 链接加 prefix（排除已经有 prefix 的、以及以 http 开头的）
+  const pageRegex = new RegExp(`(["'])\\/(?!${config.prefix.slice(1)}\\/|static\\/|https?:)([^"']+\\.html)`, 'g');
+  content = content.replace(pageRegex, `$1${config.prefix}/$2`);
+
+
   //添加全局js
-  const injectedScript = `<script src="/static/js/global.js"></script>`;
+  const injectedScript = `<script src="${config.prefix}/static/js/global.js"></script>`;
   content = content.replace('<head>', `<head>\n${injectedScript}\n`);
-    //返回响应html
+  //添加全局js
+  const googleAdScript = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2647469332993764" crossorigin="anonymous"></script>`;
+  content = content.replace('<head>', `<head>\n${googleAdScript}\n`);
+  
+
+
+    // 注入 <base> 和 data-prefix
+  const headInsert = `
+    <script>
+      document.documentElement.dataset.prefix = "${config.prefix}";
+    </script>
+    `;
+
+  content = content.replace('<head>', `<head>\n${headInsert}\n`);
+
+
+
+  //返回响应html
   return content;
 }
 
@@ -81,7 +148,7 @@ async function renderPage(filePath, password) {
 //         filePath = path.join(htmlBasePath, 'index.html');
 //         break;
 //     }
-    
+
 //     const content = await renderPage(filePath, config.password);
 //     res.send(content);
 //   } catch (error) {
@@ -92,33 +159,28 @@ async function renderPage(filePath, password) {
 
 
 //使用正则匹配所有html页面
-app.get(/^(\/$|\/.*\.html|\/s=.*)$/, async (req, res) => {
+app.get(new RegExp(`^${config.prefix}(/$|/.*\\.html|/s=.*)$`), async (req, res) => {
   try {
     const userAgent = req.headers['user-agent'];
-    //html的基本路径
     const htmlBasePath = path.join(__dirname, 'html');
-    
-    // 检查是否允许访问
+
     if (!isAllowedUserAgent(userAgent) && !req.path.includes('download.html')) {
-      // 如果不是允许的UA且不是访问download.html，则重定向到download.html
-      return res.redirect('/download.html');
+      return res.redirect(`${config.prefix}/download.html`);
     }
 
     let filePath;
+    const cleanPath = req.path.replace(config.prefix, ''); // 去掉前缀再判断
 
-    
-    if (req.path === '/' || req.path === '/index.html') {//首页
+    if (cleanPath === '/' || cleanPath === '/index.html') {
       filePath = path.join(htmlBasePath, 'index.html');
-    } else if (req.path.startsWith('/s=')) {//搜索
+    } else if (cleanPath.startsWith('/s=')) {
       filePath = path.join(htmlBasePath, 'index.html');
     } else {
-      // 处理其他 .html 页面
-      const relativePath = req.path.replace(/^\//, '');
+      const relativePath = cleanPath.replace(/^\//, '');
       filePath = path.join(htmlBasePath, relativePath);
     }
 
     if (!fs.existsSync(filePath)) {
-      console.warn('文件不存在:', filePath);
       return res.status(404).send('页面不存在');
     }
 
@@ -145,41 +207,50 @@ function isValidUrl(urlString) {
   try {
     const parsed = new URL(urlString);
     const allowedProtocols = ['http:', 'https:'];
-    
+
     // 从环境变量获取阻止的主机名列表
     const blockedHostnames = (process.env.BLOCKED_HOSTS || 'localhost,127.0.0.1,0.0.0.0,::1').split(',');
-    
+
     // 从环境变量获取阻止的 IP 前缀
     const blockedPrefixes = (process.env.BLOCKED_IP_PREFIXES || '192.168.,10.,172.').split(',');
-    
+
     if (!allowedProtocols.includes(parsed.protocol)) return false;
     if (blockedHostnames.includes(parsed.hostname)) return false;
-    
+
     for (const prefix of blockedPrefixes) {
       if (parsed.hostname.startsWith(prefix)) return false;
     }
-    
+
     return true;
   } catch {
     return false;
   }
 }
 
+
+  // 允许的User-Agent列表
+  const allowedUserAgents = [
+    'iphone', 'ipad', 'android', 'jihadandroid'
+  ];
 // 检查User-Agent是否允许访问
 function isAllowedUserAgent(userAgent) {
   if (!userAgent) return false;
   userAgent = userAgent.toLowerCase();
-  
-  // 检查是否为iPhone或iPad
-  const isIOS = userAgent.includes('iphone') || userAgent.includes('ipad');
-  const isJihadAndroid = userAgent.includes('jihadandroid');
-  
-  // 只允许iOS设备和JihadAndroid
-   return isIOS || isJihadAndroid;
+
+
+  // 检查是否包含允许的User-Agent
+  // for (const agent of allowedUserAgents) {
+  //   if (userAgent.includes(agent)) {
+  //     return true;
+  //   }
+  // }
+  // // 如果没有匹配到，返回false
+  // return false; 
+  return true; // 允许所有User-Agent
 }
 
 // 代理路由
-app.get('/proxy/:encodedUrl', async (req, res) => {
+app.get(`${config.prefix}/proxy/:encodedUrl`, async (req, res) => {
   try {
     const encodedUrl = req.params.encodedUrl;
     const targetUrl = decodeURIComponent(encodedUrl);
@@ -194,7 +265,7 @@ app.get('/proxy/:encodedUrl', async (req, res) => {
     // 添加请求超时和重试逻辑
     const maxRetries = config.maxRetries;
     let retries = 0;
-    
+
     const makeRequest = async () => {
       try {
         return await axios({
@@ -221,11 +292,11 @@ app.get('/proxy/:encodedUrl', async (req, res) => {
     // 转发响应头（过滤敏感头）
     const headers = { ...response.headers };
     const sensitiveHeaders = (
-      process.env.FILTERED_HEADERS || 
+      process.env.FILTERED_HEADERS ||
       // 'content-security-policy,cookie,set-cookie,x-frame-options,access-control-allow-origin' 防止历史记录功能失效
       'content-security-policy,cookie,set-cookie,access-control-allow-origin'
     ).split(',');
-    
+
     sensitiveHeaders.forEach(header => delete headers[header]);
     res.set(headers);
 
@@ -243,12 +314,12 @@ app.get('/proxy/:encodedUrl', async (req, res) => {
 });
 
 // 处理APK下载请求
-app.get('/download/app', (req, res) => {
+app.get(`${config.prefix}/download/app`, (req, res) => {
   // 直接重定向到下载地址
-  res.redirect('https://197795.xyz/static/jihad.apk');
+  res.redirect(`${config.prefix}/static/jihad.apk`);
 });
 
-app.use('/static',express.static(path.join(__dirname,'static'), {
+app.use(`${config.prefix}/static`, express.static(path.join(__dirname, 'static'), {
   maxAge: config.cacheMaxAge
 }));
 
